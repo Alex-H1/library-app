@@ -11,12 +11,12 @@ public class Book {
     public Book(String title, String author,
                 int wordCount, int pageCount,
                 boolean isHardCover, String genre){
-        this.title  = title;
-         this.author = author;
-         this.wordCount = wordCount;
-         this.pageCount = pageCount;
-         this.isHardCover = isHardCover;
-         this.genre = genre;
+        title  = title;
+         author = author;
+         wordCount = wordCount;
+         pageCount = pageCount;
+         isHardCover = isHardCover;
+         genre = genre;
 
     }
 
