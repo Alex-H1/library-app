@@ -7,10 +7,10 @@ public class Person {
     private String preference;
 
     public Person(String firstName, String lastName, int age, String preference){
-        firstName = firstName;
-        lastName = lastName;
-        age = age;
-        preference = preference;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.preference = preference;
     }
 
     public String getFirstName() {
@@ -41,26 +41,37 @@ public class Person {
     }
     public void setPreference(String preference){ this.preference = preference;}
 
-    public void main(String[] args) {
-        Person p1 = new Person("Alex", "h", 19, "science");
-        Person p2 = new Person("Alex", "h", 19, "science");
-        System.out.println(p1);
+
+    public static void main(String[] args) {
+        Person p1 = new Person("Alex", "H", 19, "science");
+        Person p2 = new Person("John", "H", 19, "science");
+
+        if (p1.equals(p2)) {
+            System.out.println("equals");
+        }else{
+            System.out.println("not equals");
+        }
     }
 
-//    @Override
-    public boolean equals(Person p1){
-        if(p1 == this){
+    @Override
+    public boolean equals(Object o){
+        if(o == this){
             return true;
         }
-        if(!(p1 instanceof Person)){
+
+        if(!(o instanceof Person)){
             return false;
         }
-        Person p2 = (Person)p1;
-        boolean firstNameEquals = (this.firstName == null && p2.firstName == null) ||
-                (this.firstName != null && this.firstName.equals(p2.firstName));
-        return this.lastName == p2.lastName && firstNameEquals;
+
+        Person person = (Person)o;
+
+        boolean firstNameEquals = (this.firstName == null && person.firstName == null) ||
+                (this.firstName != null && this.firstName.equals(person.firstName));
+        return this.firstName == person.firstName && firstNameEquals;
     }
 
 
 
 }
+
+
