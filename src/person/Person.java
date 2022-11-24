@@ -70,8 +70,4 @@ public class Person {
         return this.firstName == person.firstName && firstNameEquals;
     }
 
-
-
 }
-
-

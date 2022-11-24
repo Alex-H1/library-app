@@ -1,14 +1,16 @@
 package person;
 
-public class Adult {
+
+public class Adult extends Person {
     private int libraryCardNumber;
     private int booksCheckedOut;
 
-    public Adult(String firstName, String lastName, int age,
-                 String preference, int libraryCardNumber, int booksCheckedOut){
-        super();
-        libraryCardNumber = libraryCardNumber;
-        booksCheckedOut = booksCheckedOut;
+
+    public Adult(String firstName, String lastName, int age, String preference, int libraryCardNumber, int booksCheckedOut) {
+        super(firstName, lastName, age, preference);
+        this.libraryCardNumber = libraryCardNumber;
+        this.libraryCardNumber = libraryCardNumber;
+        this.booksCheckedOut = booksCheckedOut;
     }
 
     public int getBooksCheckedOut() {
@@ -25,5 +27,4 @@ public class Adult {
     public void setBooksCheckedOut(){
         this.booksCheckedOut = booksCheckedOut;
     }
-
 }

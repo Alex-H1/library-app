@@ -3,24 +3,22 @@ package book;
 public class Book {
     private String title;
     private String author;
+    private String genre;
     private int wordCount;
     private int pageCount;
     private boolean isHardCover;
-    private String genre;
 
     public Book(String title, String author,
                 int wordCount, int pageCount,
                 boolean isHardCover, String genre){
-        title  = title;
-         author = author;
-         wordCount = wordCount;
-         pageCount = pageCount;
-         isHardCover = isHardCover;
-         genre = genre;
+        this.title  = title;
+        this.author = author;
+        this.wordCount = wordCount;
+        this.pageCount = pageCount;
+        this.isHardCover = isHardCover;
+        this.genre = genre;
 
     }
-
-
 
     public String getAuthor(){
         return this.author;
@@ -71,7 +69,7 @@ public class Book {
     public void setGenre(String genre){
         this.genre = genre;
     }
-        public static void main(String[] args){
+    public static void main(String[] args){
         Book b1 = new Book("charlotte\'s web","E.B White" ,31938, 192, true, "Fiction");
         System.out.println(b1);
 
