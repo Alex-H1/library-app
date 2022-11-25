@@ -18,10 +18,6 @@ public class Child extends Person implements childs {
         this.under18 = under18;
     }
 
-     public static void main(String[] args) {
-
-    }
-
 
     public String addBook(String addBook) {
         return this.addBook = addBook;

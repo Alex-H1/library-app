@@ -1,43 +1,17 @@
 package person;
-public class Person implements People{
-    private String firstName;
-    private String lastName;
-    private int age;
+public class Person extends People{
     private String preference;
+    private int id;
 
     public Person(String firstName, String lastName, int age, String preference){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
+        super(firstName, lastName, age);
         this.preference = preference;
-    }
-
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    public String getLastName(){
-        return this.lastName;
     }
 
     public String getPreference(){
         return this.preference;
     }
-    public int getAge(){
-        return this.age;
-    }
 
-    public void setFirstName(String firstName){
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName){
-        this.lastName = lastName;
-    }
-
-    public void setAge(int age){
-        this.age = age;
-    }
     public void setPreference(String preference){ this.preference = preference;}
 
 
@@ -58,6 +32,14 @@ public class Person implements People{
         System.out.println(hashcode2);
     }
 
+    public int birthDate(int age) {
+        return age + 1;
+    }
+
+    public void printDescription(){
+
+    }
+
     @Override
     public boolean equals(Object o){
         if(o == this){
@@ -70,21 +52,17 @@ public class Person implements People{
 
         Person person = (Person)o;
 
-        boolean firstNameEquals = (this.firstName == null && person.firstName == null) ||
-                (this.firstName != null && this.firstName.equals(person.firstName));
-        return this.firstName == person.firstName && firstNameEquals;
+        boolean preferenceEquals = (this.preference == null && person.preference == null) ||
+                (this.preference != null && this.preference.equals(person.preference));
+        return this.preference == person.preference && preferenceEquals;
     }
 
     @Override
     public int hashCode(){
         int hash = 7;
-        hash = 31 * hash + (int) age;
-        hash = 31 * hash + (firstName == null ? 0 : firstName.hashCode());
-        hash = 31 * hash + (lastName == null ? 0 : lastName.hashCode());
+        hash = 31 * hash + (int) getAge();
+        hash = 31 * hash + (preference == null ? 0 : preference.hashCode());
+        hash = 31 * hash + (preference == null ? 0 : preference.hashCode());
         return hash;
-    }
-
-    public int birthDate(int age) {
-        return age + 1;
     }
 }

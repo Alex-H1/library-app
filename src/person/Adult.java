@@ -15,25 +15,28 @@ public class Adult extends Person implements Adults{
     public int getBooksCheckedOut() {
         return this.booksCheckedOut;
     }
-    public int getLibraryCardNumber(){
+    public final int getLibraryCardNumber(){
         return this.libraryCardNumber;
     }
 
-    public void setLibraryCardNumber(){
+    public final void setLibraryCardNumber(){
         this.libraryCardNumber = libraryCardNumber;
     }
 
-    public void setBooksCheckedOut(){
+    public  void setBooksCheckedOut(){
         this.booksCheckedOut = booksCheckedOut;
     }
 
+    public void printDescription(){
+        System.out.println("");
+    }
     @Override
     public int buyBook(int booksCheckedOut) {
         return booksCheckedOut + 1;
     }
 
     @Override
-    public int getLibraryCard(int libraryCardNumber) {
+    public final int getLibraryCard(int libraryCardNumber) {
         return libraryCardNumber;
     }
 }
