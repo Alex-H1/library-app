@@ -1,7 +1,8 @@
 package person;
 
-public class Child extends Person{
+public class Child extends Person implements childs {
     private boolean under18;
+    private String addBook;
 
 
     public Child(String firstName, String lastName, int age, String preference, boolean under18) {
@@ -17,5 +18,12 @@ public class Child extends Person{
         this.under18 = under18;
     }
 
+     public static void main(String[] args) {
 
+    }
+
+
+    public String addBook(String addBook) {
+        return this.addBook = addBook;
+    }
 }

@@ -1,12 +1,15 @@
 package book;
 
-public class Book {
+public class Book implements Books {
     private String title;
     private String author;
     private String genre;
     private int wordCount;
     private int pageCount;
     private boolean isHardCover;
+    private int flipPage;
+    private int finalPage;
+
 
     public Book(String title, String author,
                 int wordCount, int pageCount,
@@ -82,5 +85,16 @@ public class Book {
                 + "and has " + this.pageCount + " pages " + "and is a hardcover is "
                 + this.isHardCover;
     }
+
+    public int flipPage(int pageNumber) {
+        return flipPage =+ 1;
+    }
+
+    @Override
+    public int finalPage() {
+        return this.flipPage = finalPage;
+    }
+
+
 
 }
