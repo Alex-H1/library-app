@@ -33,22 +33,6 @@ public abstract class People implements PersonInt {
         this.age = age;
     }
 
-//    @Override
-//    public boolean equals(Object o){
-//        if(o == this){
-//            return true;
-//        }
-//
-//        if(!(o instanceof Person)){
-//            return false;
-//        }
-//
-//        Person person = (Person)o;
-//
-//        boolean firstNameEquals = (this.firstName == null && person.firstName == null) ||
-//                (this.firstName != null && this.firstName.equals(person.firstName));
-//        return this.firstName == person.firstName && firstNameEquals;
-//    }
 
 
 }

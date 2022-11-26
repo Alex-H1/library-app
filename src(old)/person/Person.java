@@ -2,7 +2,10 @@ package person;
 public class Person extends People{
     private String preference;
     private int id;
-
+//    add customer
+//    employee
+//    remove all .class files
+//    interfaces prefix ex Iperson
     public Person(String firstName, String lastName, int age, String preference){
         super(firstName, lastName, age);
         this.preference = preference;
@@ -36,9 +39,7 @@ public class Person extends People{
         return age + 1;
     }
 
-    public void printDescription(){
 
-    }
 
     @Override
     public boolean equals(Object o){
