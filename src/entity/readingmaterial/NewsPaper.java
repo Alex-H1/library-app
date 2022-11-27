@@ -1,4 +1,4 @@
-package readingmaterial;
+package entity.readingmaterial;
 
 public class NewsPaper extends ReadingMaterial {
     private String publisher;

@@ -1,6 +1,6 @@
 package user;
 
-public abstract class User {
+public abstract class User implements IUser{
     private int userId;
     private String firstName;
     private String lastName;
@@ -8,10 +8,11 @@ public abstract class User {
     private String city;
     private String userName;
     private String passWord;
+    private int age;
 
     public User(int userId, String firstName,
                 String lastName, String address,
-                String city, String userName, String passWord ){
+                String city, String userName, String passWord, int age) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -19,8 +20,12 @@ public abstract class User {
         this.city = city;
         this.userName = userName;
         this.passWord = passWord;
-
+        this.age = age;
     }
+
+//    public User() {
+//
+//    }
 
     public int getUserId(){
         return this.userId;

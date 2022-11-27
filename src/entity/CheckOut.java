@@ -1,4 +1,6 @@
-import readingmaterial.ReadingMaterial;
+package entity;
+
+import entity.readingmaterial.ReadingMaterial;
 import user.member.Member;
 
 public class CheckOut {

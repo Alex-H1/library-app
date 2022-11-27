@@ -1,7 +1,9 @@
+package entity;
+
 import user.member.Member;
 import user.staff.Librarian;
 
-public class LibraryCard {
+public class LibraryCard implements IlibraryCard{
     private int id;
     private int issueDate;
     private Librarian issuer;
@@ -41,4 +43,6 @@ public class LibraryCard {
     public boolean cancelCard(boolean active){
         return this.active = false;
     }
+
+
 }

@@ -1,4 +1,4 @@
-package readingmaterial;
+package entity.readingmaterial;
 
 public abstract class ReadingMaterial {
     private String title;
