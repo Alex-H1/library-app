@@ -2,6 +2,7 @@ package entity;
 
 import user.member.Member;
 import user.staff.Librarian;
+import user.IUser;
 
 public class LibraryCard implements IlibraryCard{
     private int id;
@@ -17,6 +18,7 @@ public class LibraryCard implements IlibraryCard{
         this.issuer = issuer;
         this.active = active;
         this.owner = owner;
+
     }
 
 

@@ -1,10 +1,12 @@
 package user.member;
 
+import entity.LibraryCard;
+
 public class Teacher extends Member{
     private String department;
 
-    public Teacher(int userId, String firstName, String lastName, String address, String city, String userName, String passWord, int age, String department){
-        super(userId, firstName, lastName, address, city,userName, passWord, age);
+    public Teacher(int userId, String firstName, String lastName, String address, String city, String userName, String passWord, int age, String department, LibraryCard card){
+        super(userId, firstName, lastName, address, city,userName, passWord, age, card);
         this.department = department;
     }
 
