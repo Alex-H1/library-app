@@ -1,6 +1,6 @@
 package user.staff;
 
-public class Custodian {
+public class Custodian extends Staff{
     private boolean floorsCleaned;
     private boolean facilitiesCleaned;
     private boolean hygeneRestocked;

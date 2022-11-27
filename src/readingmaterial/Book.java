@@ -1,5 +1,7 @@
 package readingmaterial;
 import Genre;
-public class Book {
+public class Book extends ReadingMaterial{
     private Genre = genre;
+
+
 }

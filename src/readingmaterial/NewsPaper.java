@@ -1,6 +1,6 @@
 package readingmaterial;
 
-public class NewsPaper {
+public class NewsPaper extends ReadingMaterial {
     private String publisher;
     private int publishDate;
 

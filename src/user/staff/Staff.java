@@ -1,6 +1,6 @@
 package user.staff;
 
-public class Staff {
+public abstract class Staff extends User {
     private int empId;
     private boolean fullTime;
 

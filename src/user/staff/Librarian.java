@@ -1,6 +1,6 @@
 package user.staff;
 
-public class Librarian {
+public class Librarian extends Staff{
     private boolean putAwayBooks;
 
     public Librarian(boolean putAwayBooks){
