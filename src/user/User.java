@@ -23,31 +23,33 @@ public abstract class User implements IUser{
         this.age = age;
     }
 
-//    public User() {
-//
-//    }
-
-    public int getUserId(){
+    public int setUserId(){
         return this.userId;
     }
-    public String getFirstName(){
+    public String setFirstName(){
         return this.firstName;
     }
-    public String getLastName(){
+    public String setLastName(){
         return this.lastName;
     }
-    public String getAddress(){
+    public String setAddress(){
         return this.address;
     }
-    public String getCity(){
+    public String setCity(){
         return this.city;
     }
-    public String getUserName(){
+    public String setUserName(){
         return this.userName;
     }
-    public String getPassWord(){
-        return this.passWord;
-    }
+    public int setAge(){return this.age;}
+
+    public void getUserId(int userId){this.userId = userId;}
+    public void getFirstName(String firstName){this.firstName = firstName;}
+    public void getLastName (String lastName){this.lastName = lastName;}
+    public void getAddress(String address){this.address = address;}
+    public void getCity(String city){this.city = city;}
+    public void getUserName(String userName){this.userName = userName;}
+    public void getAge(int age){this.age = age;}
 
 
 }

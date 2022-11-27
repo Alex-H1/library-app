@@ -24,10 +24,10 @@ public class CheckOut {
    public int getCheckIn(){
       return this.checkIn;
    }
-
    public String getStatus(){
       return this.status;
    }
+
 
    public void setCheckout(){
       this.checkout = checkout;

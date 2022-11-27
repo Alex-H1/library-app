@@ -10,12 +10,8 @@ public class Librarian extends Staff implements ILibrarian{
         super(userId, firstName, lastName, address, city, userName, passWord, age, empId, fullTime);
         this.putAwayBooks = putAwayBooks;
     }
-    public boolean getPutAwayBooks(){
-        return this.putAwayBooks;
-    }
-    public void setPutAwayBooks(boolean putAwayBooks){
-        this.putAwayBooks = putAwayBooks;
-    }
+    public boolean getPutAwayBooks(){return this.putAwayBooks;}
+    public void setPutAwayBooks(boolean putAwayBooks){this.putAwayBooks = putAwayBooks;}
 
     public boolean checkBook(boolean putAwayBooks){
         if(this.putAwayBooks == false){

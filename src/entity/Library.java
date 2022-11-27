@@ -12,17 +12,17 @@ public class Library {
         this.address = address;
     }
 
-    public String getName(){
+    public String setName(){
         return this.name;
     }
-    public String getAddress(){
+    public String setAddress(){
         return this.address;
     }
 
-    public void setName(String name){
+    public void getName(String name){
         this.name = name;
     }
-    public void setAddress(String address){
+    public void getAddress(String address){
         this.address = address;
     }
 }

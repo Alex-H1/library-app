@@ -4,11 +4,16 @@ public class Book extends ReadingMaterial implements IBook{
     private Genre genre;
     private int flipPage;
     private int endPage;
+    private int pageCount;
 
     public Book(String title, String author, String synopsis, Genre genre) {
         super(title, author, synopsis);
         this.genre =  genre;
     }
+
+    public void setFlipPage(){this.flipPage = flipPage;}
+    public void setEndPage(){this.endPage = endPage;}
+    public void setPageCount(){this.pageCount = pageCount;}
 
     public int getFlipPage(){
         return this.flipPage;
@@ -16,13 +21,9 @@ public class Book extends ReadingMaterial implements IBook{
     public int getEndPage(){
         return this.endPage;
     }
+    public int getPageCount(){return this.pageCount;}
 
-    public void setFlipPage(){
-        this.flipPage = flipPage;
-    }
-    public void setEndPage(){
-        this.endPage = endPage;
-    }
+
 
 
     @Override
@@ -31,5 +32,9 @@ public class Book extends ReadingMaterial implements IBook{
         return endPage = flipPage;
     }
 
+    @Override
+    public String toString(){
+        return this.getTitle() + " by " + this.getAuthor() + " is a " + this.genre.getName() + " and has  " + this.pageCount;
+    }
 
 }

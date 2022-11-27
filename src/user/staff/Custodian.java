@@ -16,23 +16,23 @@ public class Custodian extends Staff{
 
     }
 
-    public boolean setFloorsCleaned(){
+    public boolean getFloorsCleaned(){
         return this.floorsCleaned = floorsCleaned;
     }
-    public boolean setFacilitiesCleaned(){
+    public boolean getFacilitiesCleaned(){
         return this.facilitiesCleaned = facilitiesCleaned;
     }
-    public boolean setHygeneRestocked(){
+    public boolean getHygeneRestocked(){
         return this.hygeneRestocked = hygeneRestocked;
     }
 
-    public void getFloorsCleaned(boolean floorsCleaned){
+    public void setFloorsCleaned(boolean floorsCleaned){
         this.floorsCleaned = floorsCleaned;
     }
-    public void getFacilitiesCleaned(boolean facilitiesCleaned){
+    public void setFacilitiesCleaned(boolean facilitiesCleaned){
         this.facilitiesCleaned = facilitiesCleaned;
     }
-    public void getHygeneRestocked(boolean hygeneRestocked){
+    public void setHygeneRestocked(boolean hygeneRestocked){
         this.hygeneRestocked = hygeneRestocked;
     }
 
