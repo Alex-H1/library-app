@@ -6,10 +6,10 @@ public final class  Custodian extends Staff{
     private boolean hygeneRestocked;
     // soap, hand sanitizer etc
 
-    public Custodian(boolean floorsCleaned, boolean facilitiesCleaned, boolean hygeneRestocked, int empId, boolean fullTime, int userId, String firstName,
+    public Custodian(boolean floorsCleaned, boolean facilitiesCleaned, boolean hygeneRestocked, int empId, boolean fullTime,String firstName,
                      String lastName, String address,
-                     String city, String userName, String passWord, int age){
-        super(userId, firstName, lastName, address, city, userName, passWord, age, empId, fullTime);
+                     String city, String userName, String passWord, int age, String preference){
+        super( firstName, lastName, address, city, userName, passWord, age,preference, empId, fullTime);
         this.floorsCleaned = floorsCleaned;
         this.facilitiesCleaned = facilitiesCleaned;
         this.hygeneRestocked = hygeneRestocked;

@@ -7,11 +7,11 @@ public abstract class Staff extends User {
     private boolean fullTime;
 
 
-    public Staff(int userId, String firstName,
+    public Staff( String firstName,
                  String lastName, String address,
                  String city, String userName, String passWord, int age,
-                 int empId, boolean fullTime) {
-        super(userId, firstName, lastName, address, city, userName, passWord, age, teacherList);
+                  String preference, int empId, boolean fullTime) {
+        super(firstName, lastName, address, city, userName, passWord, age, preference);
         this.empId = empId;
         this.fullTime = fullTime;
     }

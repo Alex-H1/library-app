@@ -23,6 +23,8 @@ public class Library {
         this.articleList = articleList;
     }
 
+
+
     public String getName(){
         return this.name;
     }
@@ -30,6 +32,7 @@ public class Library {
         return this.address;
     }
     public List<User> getUserList(){return this.usersList;}
+    public List<ReadingMaterial> getArticleList(){return this.articleList;}
 
     public void setName(String name){
         this.name = name;
@@ -40,4 +43,5 @@ public class Library {
     public void setUserList(List<User> usersList){
         this.usersList = usersList;
     }
+    public void setArticleList(List<ReadingMaterial> articleList){this.articleList = articleList;}
 }

@@ -3,11 +3,11 @@ package user.staff;
 public final class Librarian extends Staff implements ILibrarian{
     private boolean putAwayBooks;
 
-    public Librarian(int userId, String firstName,
+    public Librarian( String firstName,
                      String lastName, String address,
                      String city, String userName, String passWord, int age,
-                     int empId, boolean fullTime,  boolean putAwayBooks){
-        super(userId, firstName, lastName, address, city, userName, passWord, age, empId, fullTime);
+                     int empId, boolean fullTime,  boolean putAwayBooks, String preference){
+        super(firstName, lastName, address, city, userName, passWord, age, preference, empId, fullTime);
         this.putAwayBooks = putAwayBooks;
     }
     public boolean getPutAwayBooks(){return this.putAwayBooks;}

@@ -1,17 +1,18 @@
 package entity;
 
-import user.member.Member;
 import user.staff.Librarian;
+
+import java.time.LocalDate;
 
 public class LibraryCard implements ILibraryCard{
     private static int id;
-    private int issueDate;
+    private LocalDate issueDate;
     private Librarian issuer;
     private boolean active;
 //    private Member owner;
 //    private int booksCheckedOut;
 
-    public LibraryCard(int id, int issueDate, Librarian issuer, boolean active) {
+    public LibraryCard(int id, LocalDate issueDate, Librarian issuer, boolean active) {
         this.id = id;
         this.issueDate = issueDate;
         this.issuer = issuer;
@@ -23,7 +24,7 @@ public class LibraryCard implements ILibraryCard{
     public int getId() {
        return this.id;
     }
-    public int getIssueDate(){
+    public LocalDate getIssueDate(){
         return this.issueDate;
     }
     public boolean getActive(){
@@ -33,7 +34,7 @@ public class LibraryCard implements ILibraryCard{
     public void setId(int id){
         this.id = id;
     }
-    public void setIssueDate(int issueDate){
+    public void setIssueDate(LocalDate issueDate){
         this.issueDate = issueDate;
     }
     public void setActive(boolean active){

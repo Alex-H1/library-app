@@ -11,7 +11,7 @@ public class Member extends User {
                   String lastName, String address,
                   String city, String userName,
                   String passWord, int age,
-                  LibraryCard card, String preference, Teacher teacher) {
+                  LibraryCard card, String preference) {
         super(firstName, lastName, address, city, userName, passWord, age, preference);
         this.card = card;
 //        this.teacherList = teacherList;
@@ -22,11 +22,11 @@ public class Member extends User {
         return card;
     }
 
-    public List<Teacher> getTeacherList() {
-        return teacherList;
-    }
+//    public List<Teacher> getTeacherList() {
+//        return teacherList;
+//    }
 
-    public void  setTeacherList(List<Teacher> teacherList){ this.teacherList = teacherList;}
+//    public void  setTeacherList(List<Teacher> teacherList){ this.teacherList = teacherList;}
     public void setCard(LibraryCard card){
         this.card = card;
     }
