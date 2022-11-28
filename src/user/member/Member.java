@@ -15,7 +15,7 @@ public class Member extends User {
 
     }
 
-    public entity.LibraryCard getCard() {
+    public LibraryCard getCard() {
         return card;
     }
 

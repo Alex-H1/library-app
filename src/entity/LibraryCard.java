@@ -3,7 +3,7 @@ package entity;
 import user.member.Member;
 import user.staff.Librarian;
 
-public class LibraryCard implements IlibraryCard{
+public class LibraryCard implements ILibraryCard{
     private static int id;
     private int issueDate;
     private Librarian issuer;
