@@ -1,5 +1,5 @@
 package entity;
 
-public interface IlibraryCard {
+public interface ILibraryCard {
     boolean cancelCard(boolean active);
 }

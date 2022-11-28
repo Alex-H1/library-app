@@ -1,1 +1,0 @@
-INDEX VERSION 1.131+C:\Users\alex1\laba.solvd\library-app\.metadata\.plugins\org.eclipse.jdt.core
