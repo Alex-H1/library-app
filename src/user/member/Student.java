@@ -11,7 +11,7 @@ public final class Student extends Member implements IStudent{
                    String lastName, String address,
                    String city, String userName,
                    String passWord, Teacher teacher,
-                   int age, LibraryCard card,String preference, boolean finishedHw) {
+                   int age, LibraryCard card,String preference, int gradeLevel) {
         super(firstName, lastName, address, city, userName, passWord, age, card, preference);
         this.teacher = teacher;
         this.gradeLevel = gradeLevel;

@@ -8,15 +8,14 @@ public class LibraryCard implements IlibraryCard{
     private int issueDate;
     private Librarian issuer;
     private boolean active;
-    private Member owner;
+//    private Member owner;
 //    private int booksCheckedOut;
 
-    public LibraryCard(int id, int issueDate, Librarian issuer, boolean active, Member owner) {
+    public LibraryCard(int id, int issueDate, Librarian issuer, boolean active) {
         this.id = id;
         this.issueDate = issueDate;
         this.issuer = issuer;
         this.active = active;
-        this.owner = owner;
 
     }
 

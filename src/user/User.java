@@ -1,5 +1,9 @@
 package user;
 
+import user.member.Teacher;
+
+import java.util.List;
+
 public abstract class User implements IUser{
 //    private int userId;
     private static String firstName;
@@ -11,7 +15,7 @@ public abstract class User implements IUser{
     private int age;
     private String preference;
 
-    public User( String firstName,
+    public User(String firstName,
                 String lastName, String address,
                 String city, String userName, String passWord,
                 int age, String preference) {
