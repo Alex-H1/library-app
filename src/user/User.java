@@ -1,7 +1,7 @@
 package user;
 
 public abstract class User implements IUser{
-    private int userId;
+//    private int userId;
     private static String firstName;
     private static String lastName;
     private String address;
@@ -11,11 +11,11 @@ public abstract class User implements IUser{
     private int age;
     private String preference;
 
-    public User(int userId, String firstName,
+    public User( String firstName,
                 String lastName, String address,
                 String city, String userName, String passWord,
                 int age, String preference) {
-        this.userId = userId;
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -26,9 +26,6 @@ public abstract class User implements IUser{
         this.preference = preference;
     }
 
-    public int getUserId(){
-        return this.userId;
-    }
     public String getFirstName(){
         return this.firstName;
     }
@@ -46,7 +43,6 @@ public abstract class User implements IUser{
     }
     public int getAge(){return this.age;}
 
-    public void setUserId(int userId){this.userId = userId;}
     public void setFirstName(String firstName){this.firstName = firstName;}
     public void setLastName (String lastName){this.lastName = lastName;}
     public void setAddress(String address){this.address = address;}

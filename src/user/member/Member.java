@@ -5,12 +5,12 @@ import user.User;
 public class Member extends User {
     private LibraryCard card;
 
-    public Member(int userId, String firstName,
+    public Member( String firstName,
                   String lastName, String address,
                   String city, String userName,
                   String passWord, int age,
-                  LibraryCard card) {
-        super(userId, firstName, lastName, address, city, userName, passWord, age);
+                  LibraryCard card, String preference) {
+        super(firstName, lastName, address, city, userName, passWord, age, preference);
         this.card = card;
 
     }

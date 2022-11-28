@@ -3,29 +3,29 @@ import entity.LibraryCard;
 
 public final class Student extends Member implements IStudent{
     private Teacher teacher;
-    private int grade;
+    private int gradeLevel;
     private boolean finishedHw;
     private int completedHwAssignment;
 
 
-    public Student(int userId, String firstName,
+    public Student( String firstName,
                    String lastName, String address,
                    String city, String userName,
                    String passWord, Teacher teacher,
-                   int age, LibraryCard card, boolean finishedHw) {
-        super(userId, firstName, lastName, address, city, userName, passWord, age, card);
+                   int age, LibraryCard card,String preference, boolean finishedHw) {
+        super(firstName, lastName, address, city, userName, passWord, age, card, preference);
         this.teacher = teacher;
-        this.grade = grade;
+        this.gradeLevel = gradeLevel;
         this.finishedHw = finishedHw;
     }
 
     public Teacher getTeacher(){return this.teacher;}
-    public int getGrade(){return this.grade;}
+    public int getGrade(){return this.gradeLevel;}
     public boolean getFinishedHw(){return this.finishedHw;}
     public int getCompletedHwAssignment(){return this.completedHwAssignment;}
 
     public void setTeacher(Teacher teacher){this.teacher = teacher;}
-    public void setGrade(int grade){this.grade = grade;}
+    public void setGrade(int gradeLevel){this.gradeLevel = gradeLevel;}
     public void setFinishedHw(boolean finishedHw){this.finishedHw = finishedHw;}
     public void setCompletedHwAssignment(int completedHwAssignment){this.completedHwAssignment = completedHwAssignment;}
 
