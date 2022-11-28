@@ -2,17 +2,19 @@ package user;
 
 public abstract class User implements IUser{
     private int userId;
-    private String firstName;
-    private String lastName;
+    private static String firstName;
+    private static String lastName;
     private String address;
     private String city;
     private String userName;
-    private String passWord;
+    private final String passWord;
     private int age;
+    private String preference;
 
     public User(int userId, String firstName,
                 String lastName, String address,
-                String city, String userName, String passWord, int age) {
+                String city, String userName, String passWord,
+                int age, String preference) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -21,35 +23,63 @@ public abstract class User implements IUser{
         this.userName = userName;
         this.passWord = passWord;
         this.age = age;
+        this.preference = preference;
     }
 
-    public int setUserId(){
+    public int getUserId(){
         return this.userId;
     }
-    public String setFirstName(){
+    public String getFirstName(){
         return this.firstName;
     }
-    public String setLastName(){
+    public String getLastName(){
         return this.lastName;
     }
-    public String setAddress(){
+    public String getAddress(){
         return this.address;
     }
-    public String setCity(){
+    public String getCity(){
         return this.city;
     }
-    public String setUserName(){
+    public String getUserName(){
         return this.userName;
     }
-    public int setAge(){return this.age;}
+    public int getAge(){return this.age;}
 
-    public void getUserId(int userId){this.userId = userId;}
-    public void getFirstName(String firstName){this.firstName = firstName;}
-    public void getLastName (String lastName){this.lastName = lastName;}
-    public void getAddress(String address){this.address = address;}
-    public void getCity(String city){this.city = city;}
-    public void getUserName(String userName){this.userName = userName;}
-    public void getAge(int age){this.age = age;}
+    public void setUserId(int userId){this.userId = userId;}
+    public void setFirstName(String firstName){this.firstName = firstName;}
+    public void setLastName (String lastName){this.lastName = lastName;}
+    public void setAddress(String address){this.address = address;}
+    public void setCity(String city){this.city = city;}
+    public void setUserName(String userName){this.userName = userName;}
+    public void setAge(int age){this.age = age;}
 
+    public final int birthDate(int age){return age += 1;}
+
+    @Override
+    public boolean equals(Object o){
+        if(o == this){
+            return true;
+        }
+
+        if(!(o instanceof User)){
+            return false;
+        }
+
+        User user = (User) o;
+
+        boolean preferenceEquals = (this.preference == null && user.preference == null) ||
+                (this.preference != null && this.preference.equals(user.preference));
+        return this.preference == user.preference && preferenceEquals;
+    }
+
+    @Override
+    public int hashCode(){
+        int hash = 7;
+        hash = 31 * hash + (int) getAge();
+        hash = 31 * hash + (preference == null ? 0 : preference.hashCode());
+        hash = 31 * hash + (preference == null ? 0 : preference.hashCode());
+        return hash;
+    }
 
 }

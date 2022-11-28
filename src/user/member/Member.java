@@ -23,8 +23,4 @@ public class Member extends User {
         this.card = card;
     }
 
-    @Override
-    public int birthDate(int age) {
-        return age += 1;
-    }
 }

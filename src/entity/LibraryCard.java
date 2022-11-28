@@ -2,10 +2,9 @@ package entity;
 
 import user.member.Member;
 import user.staff.Librarian;
-import user.IUser;
 
 public class LibraryCard implements IlibraryCard{
-    private int id;
+    private static int id;
     private int issueDate;
     private Librarian issuer;
     private boolean active;

@@ -1,6 +1,6 @@
 package user.staff;
 
-public class Custodian extends Staff{
+public final class  Custodian extends Staff{
     private boolean floorsCleaned;
     private boolean facilitiesCleaned;
     private boolean hygeneRestocked;
@@ -36,9 +36,6 @@ public class Custodian extends Staff{
         this.hygeneRestocked = hygeneRestocked;
     }
 
-    @Override
-    public int birthDate(int age) {
-        return 0;
-    }
+
 
 }

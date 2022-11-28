@@ -1,6 +1,6 @@
 package user.staff;
 
-public class Librarian extends Staff implements ILibrarian{
+public final class Librarian extends Staff implements ILibrarian{
     private boolean putAwayBooks;
 
     public Librarian(int userId, String firstName,
@@ -23,8 +23,4 @@ public class Librarian extends Staff implements ILibrarian{
         }
     }
 
-    @Override
-    public int birthDate(int age) {
-        return age += 1;
-    }
 }

@@ -16,14 +16,6 @@ public abstract class Staff extends User {
         this.fullTime = fullTime;
     }
 
-//    public Staff() {
-//        super();
-//    }
-//
-//    public Staff(int empId, boolean fullTime) {
-//
-//    }
-
     public int getEmpId() {
         return this.empId;
     }

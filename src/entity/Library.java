@@ -1,28 +1,43 @@
 package entity;
 
+import user.User;
+import entity.readingmaterial.*;
+import java.util.*;
 public class Library {
     private String name;
     private String address;
-//    private list<Users>;
-//    private list<PrintedPublication>
-//    private link<Reservations>;
+    private List<User> usersList;
+    private List<ReadingMaterial> articleList;
 
-    public Library(String name, String address){
-        this.name = name;
-        this.address = address;
+    public Library(){
+        this.name = "";
+        this.address = "";
+        this.usersList = new ArrayList<>();
+        this.articleList = new ArrayList<>();
     }
 
-    public String setName(){
+    public Library(String name, String address, List<User> userList, List<ReadingMaterial> articleList){
+        this.name = name;
+        this.address = address;
+        this.usersList = userList;
+        this.articleList = articleList;
+    }
+
+    public String getName(){
         return this.name;
     }
-    public String setAddress(){
+    public String getAddress(){
         return this.address;
     }
+    public List<User> getUserList(){return this.usersList;}
 
-    public void getName(String name){
+    public void setName(String name){
         this.name = name;
     }
-    public void getAddress(String address){
+    public void setAddress(String address){
         this.address = address;
+    }
+    public void setUserList(List<User> usersList){
+        this.usersList = usersList;
     }
 }
