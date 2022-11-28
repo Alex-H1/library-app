@@ -5,8 +5,8 @@ import entity.LibraryCard;
 public final class Teacher extends Member{
     private String department;
 
-    public Teacher(int userId, String firstName, String lastName, String address, String city, String userName, String passWord, int age, String department, LibraryCard card){
-        super(userId, firstName, lastName, address, city,userName, passWord, age, card);
+    public Teacher(String firstName, String lastName, String address, String city, String userName, String passWord, int age, String department, LibraryCard card, String preference){
+        super(firstName, lastName, address, city,userName, passWord, age, card, preference);
         this.department = department;
     }
 

@@ -3,7 +3,7 @@ import entity.*;
 import entity.readingmaterial.*;
 import user.*;
 import user.member.*;
-import user.staff.*;
+
 public class Main {
 
     public final static void print(Object o){
@@ -76,12 +76,24 @@ public class Main {
         String firstname = scan.nextLine();
         print("lastname:");
         String lastname = scan.nextLine();
+        print("Address: ");
+        String address = scan.nextLine();
+        print("city: ");
+        String city = scan.nextLine();
+        print("username: ");
+        String username = scan.nextLine();
+
+        print("password: ");
+        String password = scan.next();
+        print("age: ");
+        int age = Integer.parseInt(scan.next());
+        print("genre preference: ");
+        String preference = scan.next();
         print("Library Card No:");
         String cardNum = scan.nextLine();
 
-        print("Is member a ");
-        print("1) Student");
-        print("2) teacher");
+        print("1) Enroll Student");
+        print("2) Hire teacher");
         String num2 = scan.nextLine();
         switch(num2){
             case "1":
@@ -89,6 +101,8 @@ public class Main {
                 String teacher = scan.nextLine();
                 print("grade: ");
                 String grade = scan.nextLine();
+                library.getUserList().add(new Student(firstname, address, city, username,password,teacher,age, lastname, cardNum,preference, grade);
+            break;
 
 
         }
