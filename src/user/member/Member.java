@@ -1,12 +1,11 @@
 package user.member;
-import entity.Library;
+
 import entity.LibraryCard;
 import user.User;
 
-import java.util.List;
-
 public class Member extends User {
     private LibraryCard card;
+
     public Member(String firstName,
                   String lastName, String address,
                   String city, String userName,
@@ -26,8 +25,8 @@ public class Member extends User {
 //        return teacherList;
 //    }
 
-//    public void  setTeacherList(List<Teacher> teacherList){ this.teacherList = teacherList;}
-    public void setCard(LibraryCard card){
+    //    public void  setTeacherList(List<Teacher> teacherList){ this.teacherList = teacherList;}
+    public void setCard(LibraryCard card) {
         this.card = card;
     }
 

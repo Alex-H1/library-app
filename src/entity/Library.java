@@ -1,22 +1,25 @@
 package entity;
 
+import entity.readingmaterial.ReadingMaterial;
 import user.User;
-import entity.readingmaterial.*;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Library {
     private String name;
     private String address;
     private List<User> usersList;
     private List<ReadingMaterial> articleList;
 
-    public Library(){
+    public Library() {
         this.name = "";
         this.address = "";
         this.usersList = new ArrayList<>();
         this.articleList = new ArrayList<>();
     }
 
-    public Library(String name, String address, List<User> userList, List<ReadingMaterial> articleList){
+    public Library(String name, String address, List<User> userList, List<ReadingMaterial> articleList) {
         this.name = name;
         this.address = address;
         this.usersList = userList;
@@ -24,24 +27,35 @@ public class Library {
     }
 
 
-
-    public String getName(){
+    public String getName() {
         return this.name;
     }
-    public String getAddress(){
+
+    public String getAddress() {
         return this.address;
     }
-    public List<User> getUserList(){return this.usersList;}
-    public List<ReadingMaterial> getArticleList(){return this.articleList;}
 
-    public void setName(String name){
+    public List<User> getUserList() {
+        return this.usersList;
+    }
+
+    public List<ReadingMaterial> getArticleList() {
+        return this.articleList;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
-    public void setAddress(String address){
+
+    public void setAddress(String address) {
         this.address = address;
     }
-    public void setUserList(List<User> usersList){
+
+    public void setUserList(List<User> usersList) {
         this.usersList = usersList;
     }
-    public void setArticleList(List<ReadingMaterial> articleList){this.articleList = articleList;}
+
+    public void setArticleList(List<ReadingMaterial> articleList) {
+        this.articleList = articleList;
+    }
 }
