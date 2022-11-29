@@ -152,10 +152,10 @@ public class Main {
 
         }
     }
-
-    public final static void deleteArticle(Library l, Scanner scan) {
-
-    }
+//
+//    public final static void deleteArticle(Library l, Scanner scan) {
+//
+//    }
 }
 
 
