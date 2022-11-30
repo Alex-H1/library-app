@@ -1,7 +1,9 @@
 package user;
 
-public abstract class User implements IUser {
-    //    private int userId;
+import java.util.Scanner;
+
+public class User implements IUser {
+
     private static String firstName;
     private static String lastName;
     private final String passWord;
@@ -94,6 +96,7 @@ public abstract class User implements IUser {
                 (this.preference != null && this.preference.equals(user.preference));
         return this.preference == user.preference && preferenceEquals;
     }
+
 
     @Override
     public int hashCode() {

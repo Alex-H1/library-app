@@ -10,25 +10,16 @@ import user.member.Teacher;
 import user.staff.Custodian;
 import user.staff.Librarian;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
+
+import static entity.LibraryCard.date;
+import static helper.RanodomNumGen.randomNumGen;
 
 public class Main {
 
-    public final static int randomNumGen() {
-        Random rand = new Random(); //instance of random class
-        int upperbound = 25;
-        //generate random values from 0-24
-        return rand.nextInt(upperbound);
-    }
 
-    public final static LocalDate date() {
-        LocalDate time = LocalDate.now();
-        return time;
-    }
 
     public final static void print(Object o) {
         System.out.println(o);
@@ -49,44 +40,28 @@ public class Main {
                 }
             }
             print("0) Add User");
-//            print("1) Edit User");
             print("1) Add Article");
-//            print("3) Delete Article");
             String num = scan.nextLine();
             switch (num) {
                 case "0":
                     addUser(l, scan);
                     break;
-//                case "1":
-//                    editUser(l, scan);
-//                    break;
                 case "1":
                     addArticle(l, scan);
                     break;
-//                case "3":
-//                    deleteArticle(l, scan);
             }
         }
     }
 
     public final static void addUser(Library l, Scanner scan) {
-        print("Firstname: ");
-        String firstName = scan.nextLine();
-        print("Lastname: ");
-        String lastName = scan.nextLine();
-        print("Address: ");
-        String address = scan.nextLine();
-        print("City: ");
-        String city = scan.nextLine();
-        print("Username: ");
-        String userName = scan.nextLine();
-        print("Password: ");
-        String passWord = scan.nextLine();
-        print("age: ");
-        int age = Integer.parseInt(scan.nextLine());
-        print("Favorite Book Genre: ");
-        String genre = scan.nextLine();
-
+        String firstName = l.promptFirstname();
+        String lastName = l.promptLastname();
+        String address = l.promptAddress();
+        String city = l.promptCity();
+        String userName = l.promptUserName();
+        String passWord = l.promptPassWord();
+        int age = l.promptAge();
+        String genre = l.promptGenre();
         print("Is user a ");
         print("0) Librarian");
         print("1) Janitor");
@@ -120,17 +95,10 @@ public class Main {
 
     }
 
-    public final static void editUser(Library l, Scanner scan) {
-
-    }
-
     public final static void addArticle(Library l, Scanner scan) {
-        print("Title: ");
-        String title = scan.nextLine();
-        print("Author: ");
-        String author = scan.nextLine();
-        print("Synopsis: ");
-        String synopsis = scan.nextLine();
+        String title = l.propmtTitle();
+        String author = l.promptAuthor();
+        String synopsis = l.promptSynopsis();
         print("is article a ");
         print("0) A book");
         print("1)A Newspaper");
@@ -151,10 +119,6 @@ public class Main {
                 l.getArticleList().add(new NewsPaper(title, author, synopsis, publisher, publishDate));
 
         }
-    }
-
-    public final static void deleteArticle(Library l, Scanner scan) {
-
     }
 }
 

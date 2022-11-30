@@ -5,12 +5,19 @@ import user.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Library {
     private String name;
     private String address;
     private List<User> usersList;
     private List<ReadingMaterial> articleList;
+
+    Scanner scan = new Scanner(System.in);
+
+    public static void print(Object o) {
+        System.out.println(o);
+    }
 
     public Library() {
         this.name = "";
@@ -58,4 +65,51 @@ public class Library {
     public void setArticleList(List<ReadingMaterial> articleList) {
         this.articleList = articleList;
     }
+
+    public String promptFirstname(){
+        print("Firstname: ");
+        return scan.nextLine();
+    }
+    public String promptLastname(){
+        print("Lastname: ");
+        return scan.nextLine();
+    }
+    public String promptAddress(){
+        print("Address: ");
+        return scan.nextLine();
+    }
+    public String promptCity(){
+        print("City: ");
+        return scan.nextLine();
+    }
+    public String promptUserName(){
+        print("Username: ");
+        return scan.nextLine();
+    }
+    public String promptPassWord(){
+        print("Password: ");
+        return scan.nextLine();
+    }
+    public int promptAge(){
+        print("age: ");
+        return scan.nextInt();
+    }
+    public String promptGenre(){
+        print("Favorite Book Genre: ");
+        return scan.nextLine();
+    }
+
+    public String propmtTitle(){
+        print("Title: ");
+        return scan.nextLine();
+    }
+    public String promptAuthor(){
+        print("Author: ");
+        return scan.nextLine();
+    }
+    public String promptSynopsis(){
+        print("Synopsis: ");
+        return scan.nextLine();
+    }
+
 }

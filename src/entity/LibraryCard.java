@@ -49,5 +49,10 @@ public class LibraryCard implements ILibraryCard {
         return this.active = false;
     }
 
+    public final static LocalDate date() {
+        LocalDate time = LocalDate.now();
+        return time;
+    }
+
 
 }
