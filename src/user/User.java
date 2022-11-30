@@ -76,7 +76,7 @@ public class User implements IUser {
         this.age = age;
     }
 
-    public final int birthDate(int age) {
+    public final int haveBirthDate(int age) {
         return age += 1;
     }
 
