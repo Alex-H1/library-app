@@ -41,6 +41,9 @@ public class Main {
             }
             print("0) Add User");
             print("1) Add Article");
+            print("2) Checkout Book");
+            print("3) View Users");
+            print("4) View Books");
             String num = scan.nextLine();
             switch (num) {
                 case "0":
@@ -48,6 +51,15 @@ public class Main {
                     break;
                 case "1":
                     addArticle(l, scan);
+                    break;
+                case "2":
+                    checkoutBook(l,scan);
+                    break;
+                case "3":
+                    viewUser(l);
+                    break;
+                case "4":
+                    viewBooks(l);
                     break;
             }
         }
@@ -120,6 +132,15 @@ public class Main {
 
         }
     }
+
+    public final static void viewUser(Library l){
+        int size = l.getUserList().size();
+        for(int i = 0; i < size; i++){
+
+        }
+
+    }
+
 }
 
 
