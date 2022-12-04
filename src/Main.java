@@ -1,3 +1,4 @@
+import entity.CheckOut;
 import entity.Genre;
 import entity.Library;
 import entity.LibraryCard;
@@ -9,12 +10,14 @@ import user.member.Student;
 import user.member.Teacher;
 import user.staff.Custodian;
 import user.staff.Librarian;
+import entity.CheckOut;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static entity.LibraryCard.date;
+import static helper.Date.date;
 import static helper.RanodomNumGen.randomNumGen;
 
 public class Main {
@@ -34,20 +37,28 @@ public class Main {
             print("Library UI");
             if (userList.size() == 0) {
                 print("The Library is closed");
-            } else {
-                for (User u : l.getUserList()) {
-                    print(u.getFirstName() + " " + u.getLastName() + " are at the library");
-                }
             }
             print("0) Add User");
-            print("1) Add Article");
+            print("1) See all users");
+            print("2) Add Article");
+            print("3) See all Articles");
+            print("4) checkout Article");
             String num = scan.nextLine();
             switch (num) {
                 case "0":
                     addUser(l, scan);
                     break;
                 case "1":
+                    getUsers(l);
+                    break;
+                case "2":
                     addArticle(l, scan);
+                    break;
+                case "3":
+                    getArticles(l);
+                    break;
+                case "4":
+                    checkoutArticle(l,scan);
                     break;
             }
         }
@@ -120,6 +131,35 @@ public class Main {
 
         }
     }
+
+    public static final void getUsers(Library l){
+        for (User u : l.getUserList()) {
+            print(u.getFirstName() + " " + u.getLastName() + " are at the library");
+        }
+    }
+
+    public static final void getArticles(Library l){
+        for (ReadingMaterial r : l.getArticleList()) {
+            print(r.getTitle() + " by " + r.getAuthor());
+        }
+    }
+
+    public static final void checkoutArticle(Library l, Scanner scan){
+        LocalDate articleReturn = date().plusDays(90);
+       print("Title of article: ");
+       String title = scan.nextLine();
+       print("Name of member: ");
+       String name = scan.nextLine();
+        for (User u : l.getUserList()) {
+            for (ReadingMaterial r : l.getArticleList()) {
+                if(title == r.getTitle() && name == u.getFirstName()){
+                    CheckOut c = new CheckOut(date(), articleReturn, u);
+                }
+            }
+        }
+
+    }
+
 }
 
 

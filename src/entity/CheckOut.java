@@ -1,34 +1,32 @@
 package entity;
 
 import entity.readingmaterial.ReadingMaterial;
+import user.User;
 import user.member.Member;
+
+import java.time.LocalDate;
 
 public class CheckOut {
     private ReadingMaterial article;
-    private int checkout;
-    private int checkIn;
-    private String status;
-    private final Member person;
+    private LocalDate checkout;
+    private LocalDate checkIn;
+    private final User person;
 
 
-    public CheckOut(int checkout, int checkIn, String status, Member person) {
+    public CheckOut(LocalDate checkout, LocalDate checkIn, User person) {
         this.checkout = checkout;
         this.checkIn = checkIn;
-        this.status = status;
         this.person = person;
     }
 
-    public int getCheckout() {
+    public LocalDate getCheckout() {
         return this.checkout;
     }
 
-    public int getCheckIn() {
+    public LocalDate getCheckIn() {
         return this.checkIn;
     }
 
-    public String getStatus() {
-        return this.status;
-    }
 
 
     public void setCheckout() {
@@ -39,8 +37,5 @@ public class CheckOut {
         this.checkIn = checkIn;
     }
 
-    public void setStatus() {
-        this.status = status;
-    }
 
 }

@@ -9,8 +9,6 @@ public class LibraryCard implements ILibraryCard {
     private LocalDate issueDate;
     private final Librarian issuer;
     private boolean active;
-//    private Member owner;
-//    private int booksCheckedOut;
 
     public LibraryCard(int id, LocalDate issueDate, Librarian issuer, boolean active) {
         LibraryCard.id = id;
@@ -49,10 +47,7 @@ public class LibraryCard implements ILibraryCard {
         return this.active = false;
     }
 
-    public final static LocalDate date() {
-        LocalDate time = LocalDate.now();
-        return time;
-    }
+
 
 
 }
