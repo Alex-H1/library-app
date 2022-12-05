@@ -5,6 +5,9 @@ import entity.LibraryCard;
 import entity.readingmaterial.Book;
 import entity.readingmaterial.NewsPaper;
 import entity.readingmaterial.ReadingMaterial;
+import exceptions.InvalidNumberException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import user.User;
 import user.member.Student;
 import user.member.Teacher;
@@ -22,11 +25,7 @@ import static helper.RanodomNumGen.randomNumGen;
 
 public class Main {
 
-
-
-    public final static void print(Object o) {
-        System.out.println(o);
-    }
+    public final static Logger log = LogManager.getLogger();
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -34,16 +33,17 @@ public class Main {
         List<ReadingMaterial> articleList = new ArrayList<>();
         Library l = new Library("county library", "123 Seseme St", userList, articleList);
         while (true) {
-            print("Library UI");
+            log.info("Library UI");
             if (userList.size() == 0) {
-                print("The Library is closed");
+                log.info("The Library is closed");
             }
-            print("0) Add User");
-            print("1) See all users");
-            print("2) Add Article");
-            print("3) See all Articles");
-            print("4) checkout Article");
-            String num = scan.nextLine();
+                log.info("0) Add User");
+                log.info("1) See all users");
+                log.info("2) Add Article");
+                log.info("3) See all Articles");
+                log.info("4) checkout Article");
+                String num = scan.nextLine();
+
             switch (num) {
                 case "0":
                     addUser(l, scan);
@@ -73,30 +73,40 @@ public class Main {
         String passWord = l.promptPassWord();
         int age = l.promptAge();
         String genre = l.promptGenre();
-        print("Is user a ");
-        print("0) Librarian");
-        print("1) Janitor");
-        print("2) Teacher");
-        print("3) Student");
+        log.info("Is user a ");
+        log.info("0) Librarian");
+        log.info("1) Janitor");
+        log.info("2) Teacher");
+        log.info("3) Student");
 
-        String num2 = scan.nextLine();
+        int num2 = scan.nextInt();
         Librarian librarian = new Librarian("placeholder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", 56, 55, true, true, genre);
+        boolean fullTime = false;
+        if(num2 == 0 || num2 == 1){
+            log.info("is employee full time \n true \n false");
+            String answer = scan.nextLine().toLowerCase();
+            if (answer == "true"){
+                fullTime = true;
+            } else if(answer == "false"){
+                fullTime = false;
+            }
+        }
 
         switch (num2) {
-            case "0":
-                l.getUserList().add(new Librarian(firstName, lastName, address, city, userName, passWord, age, randomNumGen(), true, true, genre));
+            case 0:
+                l.getUserList().add(new Librarian(firstName, lastName, address, city, userName, passWord, age, randomNumGen(), fullTime, true, genre));
                 break;
-            case "1":
-                l.getUserList().add(new Custodian(true, true, true, randomNumGen(), true, firstName, lastName, address, city, userName, passWord, age, genre));
+            case 1:
+                l.getUserList().add(new Custodian(true, true, true, randomNumGen(), fullTime, firstName, lastName, address, city, userName, passWord, age, genre));
                 break;
-            case "2":
-                print("Department: ");
+            case 2:
+                log.info("Department: ");
                 String department = scan.nextLine();
                 LibraryCard c = new LibraryCard(randomNumGen(), date(), librarian, true);
                 l.getUserList().add(new Teacher(firstName, lastName, address, city, userName, passWord, age, department, c, genre));
                 break;
-            case "3":
-                print("Grade: ");
+            case 3:
+                log.info("Grade: ");
                 int grade = Integer.parseInt(scan.nextLine());
                 LibraryCard s = new LibraryCard(randomNumGen(), date(), librarian, true);
                 Teacher teacher = new Teacher("placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", 75, "placeHolder", s, "placeHolder");
@@ -110,22 +120,22 @@ public class Main {
         String title = l.propmtTitle();
         String author = l.promptAuthor();
         String synopsis = l.promptSynopsis();
-        print("is article a ");
-        print("0) A book");
-        print("1)A Newspaper");
+        log.info("is article a ");
+        log.info("0) A book");
+        log.info("1)A Newspaper");
         String num3 = scan.nextLine();
 
         switch (num3) {
             case "0":
-                print("What genre is the book");
+                log.info("What genre is the book");
                 String genre = scan.nextLine();
                 Genre g = new Genre(genre);
                 l.getArticleList().add(new Book(title, author, synopsis, g));
                 break;
             case "1":
-                print("Publisher: ");
+                log.info("Publisher: ");
                 String publisher = scan.nextLine();
-                print("Publish Date");
+                log.info("Publish Date");
                 int publishDate = Integer.parseInt(scan.nextLine());
                 l.getArticleList().add(new NewsPaper(title, author, synopsis, publisher, publishDate));
 
@@ -134,21 +144,21 @@ public class Main {
 
     public static final void getUsers(Library l){
         for (User u : l.getUserList()) {
-            print(u.getFirstName() + " " + u.getLastName() + " are at the library");
+            log.info(u.getFirstName() + " " + u.getLastName() + " are at the library");
         }
     }
 
     public static final void getArticles(Library l){
         for (ReadingMaterial r : l.getArticleList()) {
-            print(r.getTitle() + " by " + r.getAuthor());
+            log.info(r.getTitle() + " by " + r.getAuthor());
         }
     }
 
     public static final void checkoutArticle(Library l, Scanner scan){
         LocalDate articleReturn = date().plusDays(90);
-       print("Title of article: ");
+       log.info("Title of article: ");
        String title = scan.nextLine();
-       print("Name of member: ");
+       log.info("Name of member: ");
        String name = scan.nextLine();
         for (User u : l.getUserList()) {
             for (ReadingMaterial r : l.getArticleList()) {
