@@ -96,10 +96,11 @@ public class Library {
     }
     public String promptGenre(){
         print("Favorite Book Genre: ");
-        return scan.nextLine();
+        String genre = scan.nextLine();
+        return genre;
     }
 
-    public String propmtTitle(){
+    public String promptTitle(){
         print("Title: ");
         return scan.nextLine();
     }
