@@ -1,9 +1,13 @@
 package entity;
 
 import entity.readingmaterial.ReadingMaterial;
+import exceptions.InvalidTypeException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import user.User;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,9 +19,8 @@ public class Library {
 
     Scanner scan = new Scanner(System.in);
 
-    public static void print(Object o) {
-        System.out.println(o);
-    }
+    public final static Logger log = LogManager.getLogger(Library.class.getName());
+
 
     public Library() {
         this.name = "";
@@ -67,49 +70,56 @@ public class Library {
     }
 
     public String promptFirstname(){
-        print("Firstname: ");
+        log.info("Firstname: ");
         return scan.nextLine();
     }
     public String promptLastname(){
-        print("Lastname: ");
+        log.info("Lastname: ");
         return scan.nextLine();
     }
     public String promptAddress(){
-        print("Address: ");
+        log.info("Address: ");
         return scan.nextLine();
     }
     public String promptCity(){
-        print("City: ");
+        log.info("City: ");
         return scan.nextLine();
     }
     public String promptUserName(){
-        print("Username: ");
+        log.info("Username: ");
         return scan.nextLine();
     }
     public String promptPassWord(){
-        print("Password: ");
+        log.info("Password: ");
         return scan.nextLine();
     }
-    public int promptAge(){
-        print("age: ");
-        return scan.nextInt();
+    public int promptAge() throws InvalidTypeException {
+        try {
+            log.info("age: ");
+            return scan.nextInt();
+        } catch (InputMismatchException e){
+            throw new InvalidTypeException("should be an integer");
+        }
     }
-    public String promptGenre(){
-        print("Favorite Book Genre: ");
-        String genre = scan.nextLine();
-        return genre;
-    }
-
     public String promptTitle(){
-        print("Title: ");
+        log.info("Title: ");
         return scan.nextLine();
     }
     public String promptAuthor(){
-        print("Author: ");
+        log.info("Author: ");
         return scan.nextLine();
     }
     public String promptSynopsis(){
-        print("Synopsis: ");
+        log.info("Synopsis: ");
+        return scan.nextLine();
+    }
+
+    public String promptArticle(){
+        log.info("Title of article: ");
+        return scan.nextLine();
+    }
+    public String promptMember(){
+        log.info("Name of member: ");
         return scan.nextLine();
     }
 
