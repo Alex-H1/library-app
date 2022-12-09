@@ -5,18 +5,18 @@ import exceptions.InvalidTypeException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import user.User;
+import user.member.Member;
+import user.member.Teacher;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Library {
     private String name;
     private String address;
-    private List<User> usersList;
-    private List<ReadingMaterial> articleList;
-
+    private ArrayList<User> usersList;
+    private ArrayList<ReadingMaterial> articleList;
+    private ArrayDeque<Teacher> teacherList;
+    private ArrayList<Member> memberList;
     Scanner scan = new Scanner(System.in);
 
     public final static Logger log = LogManager.getLogger(Library.class.getName());
@@ -26,14 +26,18 @@ public class Library {
         this.name = "";
         this.address = "";
         this.usersList = new ArrayList<>();
+        this.memberList = new ArrayList<>();
         this.articleList = new ArrayList<>();
+        this.teacherList = new ArrayDeque<>();
     }
 
-    public Library(String name, String address, List<User> userList, List<ReadingMaterial> articleList) {
+    public Library(String name, String address, ArrayList<User> userList, ArrayList<Member> memberList,ArrayList<ReadingMaterial> articleList,ArrayDeque<Teacher> teacherList) {
         this.name = name;
         this.address = address;
         this.usersList = userList;
         this.articleList = articleList;
+        this.teacherList = teacherList;
+        this.memberList = memberList;
     }
 
 
@@ -45,13 +49,17 @@ public class Library {
         return this.address;
     }
 
-    public List<User> getUserList() {
+    public ArrayList<User> getUserList() {
         return this.usersList;
     }
 
-    public List<ReadingMaterial> getArticleList() {
+    public ArrayList<ReadingMaterial> getArticleList() {
         return this.articleList;
     }
+    public ArrayList<Member> getMemberList(){ return this.memberList;}
+    public ArrayDeque getTeacherList(){ return this.teacherList; }
+    public void setTeacherList(ArrayDeque<Teacher> teacherList){ this.teacherList = teacherList; }
+    public void setMemberList(ArrayList<Member> memberList){ this.memberList = memberList; }
 
     public void setName(String name) {
         this.name = name;
@@ -61,11 +69,11 @@ public class Library {
         this.address = address;
     }
 
-    public void setUserList(List<User> usersList) {
+    public void setUserList(ArrayList<User> usersList) {
         this.usersList = usersList;
     }
 
-    public void setArticleList(List<ReadingMaterial> articleList) {
+    public void setArticleList(ArrayList<ReadingMaterial> articleList) {
         this.articleList = articleList;
     }
 

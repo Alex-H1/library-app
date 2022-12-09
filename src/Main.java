@@ -5,22 +5,18 @@ import entity.LibraryCard;
 import entity.readingmaterial.Book;
 import entity.readingmaterial.NewsPaper;
 import entity.readingmaterial.ReadingMaterial;
-import exceptions.InvalidNameException;
-import exceptions.InvalidNumberException;
-import exceptions.InvalidTypeException;
+import exceptions.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import user.User;
+import user.member.Member;
 import user.member.Student;
 import user.member.Teacher;
 import user.staff.Custodian;
 import user.staff.Librarian;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static helper.Date.date;
 import static helper.RanodomNumGen.randomNumGen;
@@ -28,11 +24,13 @@ import static helper.RanodomNumGen.randomNumGen;
 public class Main {
 
     public final static Logger log = LogManager.getLogger(Main.class.getName());
-    public static void main(String[] args) throws InvalidNumberException, InvalidTypeException {
+    public static void main(String[] args) throws InvalidNumberException, InvalidTypeException, InvalidBooleanException {
         Scanner scan = new Scanner(System.in);
-        List<User> userList = new ArrayList<>();
-        List<ReadingMaterial> articleList = new ArrayList<>();
-        Library l = new Library("county library", "123 Seseme St", userList, articleList);
+        ArrayList<User> userList = new ArrayList<>();
+        ArrayList<Member> memberList = new ArrayList<>();
+        ArrayList<ReadingMaterial> articleList = new ArrayList<>();
+        ArrayDeque<Teacher> teacherList = new ArrayDeque<>();
+        Library l = new Library("county library", "123 Seseme St", userList, memberList, articleList, teacherList);
         while (true) {
             log.info("Library UI");
             if (userList.size() == 0) {
@@ -83,7 +81,7 @@ public class Main {
         return scan.nextInt();
     }
 
-    public final static void addUser(Library l, Scanner scan) throws InvalidTypeException {
+    public final static void addUser(Library l, Scanner scan) throws InvalidTypeException, InvalidBooleanException {
         String firstName = l.promptFirstname();
         String lastName = l.promptLastname();
         String address = l.promptAddress();
@@ -99,30 +97,50 @@ public class Main {
         }
         int num2 = printMenu(scan);
 
+        boolean fullTimeBool = false;
+        if(num2 == 0 || num2 == 1){
+            log.info("Is user fulltime?");
+            log.info("0) true");
+            log.info("1) false");
+            try {
+                int fullTime = scan.nextInt();
+                if (fullTime == 0) {
+                    fullTimeBool = true;
+                } else if (fullTime == 1) {
+                    fullTimeBool = false;
+                } else {
+                    throw new InvalidBooleanException("please enter 0 or 1");
+                }
+            }catch (InvalidBooleanException IBE){
+                log.error(IBE);
+            }
+        }
         String genre = "science";
         Librarian librarian = new Librarian("placeholder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", 56, 55, true, true, genre);
-        boolean fullTime = false;
-
+        LibraryCard c = new LibraryCard(randomNumGen(), date(), librarian, true);
+        ArrayDeque<ReadingMaterial> checkedOutBooks = null;
+        checkedOutBooks.add(new Book("Green Eggs and Ham", "Dr.Suess","synopsis", new Genre("childrens book")));
+        Teacher t = new Teacher(firstName, lastName, address, city, userName, passWord, 22, "PE",c, genre,checkedOutBooks );
         switch (num2) {
             case 0:
-                l.getUserList().add(new Librarian(firstName, lastName, address, city, userName, passWord, age, randomNumGen(), fullTime, true, genre));
+                l.getUserList().add(new Librarian(firstName, lastName, address, city, userName, passWord, age, randomNumGen(), fullTimeBool, true, genre));
                 break;
             case 1:
-                l.getUserList().add(new Custodian(true, true, true, randomNumGen(), fullTime, firstName, lastName, address, city, userName, passWord, age, genre));
+                l.getUserList().add(new Custodian(true, true, true, randomNumGen(), fullTimeBool, firstName, lastName, address, city, userName, passWord, age, genre));
                 break;
             case 2:
 
                 log.info("Department: ");
                 String department = scan.nextLine();
-                LibraryCard c = new LibraryCard(randomNumGen(), date(), librarian, true);
-                l.getUserList().add(new Teacher(firstName, lastName, address, city, userName, passWord, age, department, c, genre));
+                l.getMemberList().add(new Teacher(firstName, lastName, address, city, userName, passWord, age, department, c, genre, checkedOutBooks));
                 break;
             case 3:
                 log.info("Grade: ");
                 int grade = scan.nextInt();
                 LibraryCard s = new LibraryCard(randomNumGen(), date(), librarian, true);
-                Teacher teacher = new Teacher("placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", 75, "placeHolder", s, "placeHolder");
-                l.getUserList().add(new Student(firstName, lastName, address, city, userName, passWord, teacher, age, s, genre, grade));
+                Teacher teacher = new Teacher("placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", 75, "placeHolder", s, "placeHolder", null);
+
+                l.getMemberList().add(new Student(firstName, lastName, address, city, userName, passWord, teacher, age, s, genre, grade, checkedOutBooks));
 
         }
 
@@ -170,22 +188,25 @@ public class Main {
         LocalDate articleReturn = date().plusDays(90);
        String title = l.promptArticle();
        String name = l.promptMember();
-        for (User u : l.getUserList()) {
+        for (Member m : l.getMemberList()) {
             for (ReadingMaterial r : l.getArticleList()) {
                 try {
-                    if (title == r.getTitle() && name == u.getFirstName()) {
-                        CheckOut c = new CheckOut(date(), articleReturn, u);
-                    } else{
-                        throw new InvalidNameException("Invalid name or title");
+                    if (Objects.equals(title, r.getTitle()) && Objects.equals(name, m.getFirstName())) {
+                        CheckOut c = new CheckOut(date(), articleReturn, m);
+                        m.getCheckedOutBooks().add(r);
+                    } else if(!(Objects.equals(title, r.getTitle()))){
+                        throw new InvalidBookException("Invalid title");
+                    }else if(!(Objects.equals(name, m.getFirstName()))){
+                        throw new InvalidNameException("Invalid name");
                     }
-                } catch (InvalidNameException e) {
-                    log.error(e);
+                } catch (InvalidNameException INE) {
+                    log.error(INE);
+                } catch (InvalidBookException IBE) {
+                    log.error(IBE);
                 }
             }
         }
-
     }
-
 }
 
 

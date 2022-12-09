@@ -1,6 +1,9 @@
 package user.member;
 
 import entity.LibraryCard;
+import entity.readingmaterial.ReadingMaterial;
+
+import java.util.ArrayDeque;
 
 public final class Student extends Member implements IStudent {
     private Teacher teacher;
@@ -12,8 +15,8 @@ public final class Student extends Member implements IStudent {
                    String lastName, String address,
                    String city, String userName,
                    String passWord, Teacher teacher,
-                   int age, LibraryCard card, String preference, int gradeLevel) {
-        super(firstName, lastName, address, city, userName, passWord, age, card, preference);
+                   int age, LibraryCard card, String preference, int gradeLevel, ArrayDeque<ReadingMaterial> checkedOutBooks) {
+        super(firstName, lastName, address, city, userName, passWord, age, card, preference,checkedOutBooks);
         this.teacher = teacher;
         this.gradeLevel = gradeLevel;
     }
@@ -21,27 +24,17 @@ public final class Student extends Member implements IStudent {
     public Teacher getTeacher() {
         return this.teacher;
     }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
     public int getGrade() {
         return this.gradeLevel;
     }
-
-    public void setGrade(int gradeLevel) {
-        this.gradeLevel = gradeLevel;
-    }
-
     public int getCompletedHwAssignment() {
         return this.completedHwAssignment;
     }
-
-    public void setCompletedHwAssignment(int completedHwAssignment) {
-        this.completedHwAssignment = completedHwAssignment;
+    public void setTeacher(Teacher teacher) { this.teacher = teacher; }
+    public void setGrade(int gradeLevel) {
+        this.gradeLevel = gradeLevel;
     }
-
+    public void setCompletedHwAssignment(int completedHwAssignment) { this.completedHwAssignment = completedHwAssignment; }
     public int completedAssignments(boolean finishedHw) {
         return completedHwAssignment += 1;
     }
