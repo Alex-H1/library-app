@@ -22,8 +22,6 @@ import static helper.Date.date;
 import static helper.RanodomNumGen.randomNumGen;
 
 public class Main {
-//    add boolean exception
-//    case when checks out already used books from library
     public final static Logger log = LogManager.getLogger(Main.class.getName());
     public static void main(String[] args) throws InvalidNumberException, InvalidTypeException, InvalidBooleanException {
         Scanner scan = new Scanner(System.in);
@@ -200,10 +198,10 @@ public class Main {
                     }else if(!(Objects.equals(name, m.getFirstName()))){
                         throw new InvalidNameException("Invalid name");
                     }
-                } catch (InvalidNameException INE) {
-                    log.error(INE);
-                } catch (InvalidBookException IBE) {
-                    log.error(IBE);
+                } catch (InvalidNameException ine) {
+                    log.error(ine);
+                } catch (InvalidBookException ibe) {
+                    log.error(ibe);
                 }
             }
         }
