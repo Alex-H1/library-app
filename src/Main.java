@@ -22,24 +22,26 @@ import static helper.Date.date;
 import static helper.RanodomNumGen.randomNumGen;
 
 public class Main {
-    public final static Logger log = LogManager.getLogger(Main.class.getName());
-    public static void main(String[] args) throws InvalidNumberException, InvalidTypeException, InvalidBooleanException {
+    public final static Logger LOG = LogManager.getLogger(Main.class.getName());
+    public static void main(String[] args) throws InvalidTypeException, InvalidBooleanException {
         Scanner scan = new Scanner(System.in);
-        ArrayList<User> userList = new ArrayList<>();
-        ArrayList<Member> memberList = new ArrayList<>();
-        ArrayList<ReadingMaterial> articleList = new ArrayList<>();
+        HashSet<User> userList = new HashSet<>();
+        Vector<Member> memberList = new Vector<>();
+        TreeSet<ReadingMaterial> articleList = new TreeSet<>();
         ArrayDeque<Teacher> teacherList = new ArrayDeque<>();
-        Library l = new Library("county library", "123 Seseme St", userList, memberList, articleList, teacherList);
+        HashMap<Student, Integer> studentGradeMap = new HashMap<>();
+
+        Library l = new Library("county library", "123 Seseme St", userList, memberList, articleList, teacherList, studentGradeMap);
         while (true) {
-            log.info("Library UI");
+            LOG.info("Library UI");
             if (userList.size() == 0) {
-                log.info("The Library is closed");
+                LOG.info("The Library is closed");
             }
-                log.info("0) Add User");
-                log.info("1) See all users");
-                log.info("2) Add Article");
-                log.info("3) See all Articles");
-                log.info("4) checkout Article");
+                LOG.info("0) Add User");
+                LOG.info("1) See all users");
+                LOG.info("2) Add Article");
+                LOG.info("3) See all Articles");
+                LOG.info("4) checkout Article");
                 int num = 0;
                 try{
                   num = scan.nextInt();
@@ -47,7 +49,7 @@ public class Main {
                       throw new InvalidNumberException("0-4");
                   }
                 } catch (InvalidNumberException e){
-                    log.error(e);
+                    LOG.error(e);
                 }
 
 
@@ -72,11 +74,11 @@ public class Main {
     }
 
     public final static int printMenu(Scanner scan){
-        log.info("Is user a ");
-        log.info("0) Librarian");
-        log.info("1) Janitor");
-        log.info("2) Teacher");
-        log.info("3) Student");
+        LOG.info("Is user a ");
+        LOG.info("0) Librarian");
+        LOG.info("1) Janitor");
+        LOG.info("2) Teacher");
+        LOG.info("3) Student");
         return scan.nextInt();
     }
 
@@ -92,15 +94,15 @@ public class Main {
             age = l.promptAge();
 
         } catch (InvalidTypeException e) {
-            log.error(e);
+            LOG.error(e);
         }
         int num2 = printMenu(scan);
 
         boolean fullTimeBool = false;
         if(num2 == 0 || num2 == 1){
-            log.info("Is user fulltime?");
-            log.info("0) true");
-            log.info("1) false");
+            LOG.info("Is user fulltime?");
+            LOG.info("0) true");
+            LOG.info("1) false");
             try {
                 int fullTime = scan.nextInt();
                 if (fullTime == 0) {
@@ -111,13 +113,13 @@ public class Main {
                     throw new InvalidBooleanException("please enter 0 or 1");
                 }
             }catch (InvalidBooleanException IBE){
-                log.error(IBE);
+                LOG.error(IBE);
             }
         }
         String genre = "science";
         Librarian librarian = new Librarian("placeholder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", 56, 55, true, true, genre);
         LibraryCard c = new LibraryCard(randomNumGen(), date(), librarian, true);
-        ArrayDeque<ReadingMaterial> checkedOutBooks = null;
+        ArrayList<ReadingMaterial> checkedOutBooks = null;
         checkedOutBooks.add(new Book("Green Eggs and Ham", "Dr.Suess","synopsis", new Genre("childrens book")));
         Teacher t = new Teacher(firstName, lastName, address, city, userName, passWord, 22, "PE",c, genre,checkedOutBooks );
         switch (num2) {
@@ -129,18 +131,18 @@ public class Main {
                 break;
             case 2:
 
-                log.info("Department: ");
+                LOG.info("Department: ");
                 String department = scan.nextLine();
                 l.getMemberList().add(new Teacher(firstName, lastName, address, city, userName, passWord, age, department, c, genre, checkedOutBooks));
                 break;
             case 3:
-                log.info("Grade: ");
+                LOG.info("Grade: ");
                 int grade = scan.nextInt();
                 LibraryCard s = new LibraryCard(randomNumGen(), date(), librarian, true);
                 Teacher teacher = new Teacher("placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", 75, "placeHolder", s, "placeHolder", null);
-
-                l.getMemberList().add(new Student(firstName, lastName, address, city, userName, passWord, teacher, age, s, genre, grade, checkedOutBooks));
-
+                Student student = new Student(firstName, lastName, address, city, userName, passWord, teacher, age, s, genre, grade, checkedOutBooks);
+                l.getMemberList().add(student);
+                l.getStudentGradeMap().put(student, Integer.valueOf(grade));
         }
 
     }
@@ -149,22 +151,22 @@ public class Main {
         String title = l.promptTitle();
         String author = l.promptAuthor();
         String synopsis = l.promptSynopsis();
-        log.info("is article a ");
-        log.info("0) A book");
-        log.info("1)A Newspaper");
+        LOG.info("is article a ");
+        LOG.info("0) A book");
+        LOG.info("1)A Newspaper");
         String num3 = scan.nextLine();
 
         switch (num3) {
             case "0":
-                log.info("What genre is the book");
+                LOG.info("What genre is the book");
                 String genre = scan.nextLine();
                 Genre g = new Genre(genre);
                 l.getArticleList().add(new Book(title, author, synopsis, g));
                 break;
             case "1":
-                log.info("Publisher: ");
+                LOG.info("Publisher: ");
                 String publisher = scan.nextLine();
-                log.info("Publish Date");
+                LOG.info("Publish Date");
                 int publishDate = Integer.parseInt(scan.nextLine());
                 l.getArticleList().add(new NewsPaper(title, author, synopsis, publisher, publishDate));
 
@@ -173,13 +175,13 @@ public class Main {
 
     public static final void getUsers(Library l){
         for (User u : l.getUserList()) {
-            log.info(u.getFirstName() + " " + u.getLastName() + " are at the library");
+            LOG.info(u.getFirstName() + " " + u.getLastName() + " are at the library");
         }
     }
 
     public static final void getArticles(Library l){
         for (ReadingMaterial r : l.getArticleList()) {
-            log.info(r.getTitle() + " by " + r.getAuthor());
+            LOG.info(r.getTitle() + " by " + r.getAuthor());
         }
     }
 
@@ -199,9 +201,9 @@ public class Main {
                         throw new InvalidNameException("Invalid name");
                     }
                 } catch (InvalidNameException ine) {
-                    log.error(ine);
+                    LOG.error(ine);
                 } catch (InvalidBookException ibe) {
-                    log.error(ibe);
+                    LOG.error(ibe);
                 }
             }
         }

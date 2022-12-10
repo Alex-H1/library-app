@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class LinkedList<V> {
-    public final static Logger log = LogManager.getLogger(LinkedList.class);
+    public final static Logger LOG = LogManager.getLogger(LinkedList.class);
 
     private Node head = null;
     private Node tail = null;
@@ -37,14 +37,14 @@ public class LinkedList<V> {
         Node current = head;
 
         if(current == null){
-            log.info("list is empty");
+            LOG.info("list is empty");
             return;
         }
         while (current != null){
-            log.info(current.data);
+            LOG.info(current.data);
             current = current.next;
         }
-        log.info("");
+        LOG.info("");
     }
 
     public static void main(String[] args){

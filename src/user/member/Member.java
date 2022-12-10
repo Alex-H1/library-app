@@ -7,16 +7,17 @@ import entity.readingmaterial.ReadingMaterial;
 import user.User;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 
 public class Member extends User {
     private LibraryCard card;
-    private ArrayDeque<ReadingMaterial> checkedOutBooks;
+    private ArrayList<ReadingMaterial> checkedOutBooks;
 
     public Member(String firstName,
                   String lastName, String address,
                   String city, String userName,
                   String passWord, int age,
-                  LibraryCard card, String preference, ArrayDeque<ReadingMaterial> checkedOutBooks) {
+                  LibraryCard card, String preference, ArrayList<ReadingMaterial> checkedOutBooks) {
         super(firstName, lastName, address, city, userName, passWord, age, preference);
         this.card = card;
         this.checkedOutBooks = checkedOutBooks;
@@ -25,7 +26,7 @@ public class Member extends User {
     public LibraryCard getCard() {
         return card;
     }
-    public ArrayDeque<ReadingMaterial> getCheckedOutBooks() {
+    public ArrayList<ReadingMaterial> getCheckedOutBooks() {
         return this.checkedOutBooks;
     }
     public void setCheckedOutBooks(){
@@ -34,5 +35,4 @@ public class Member extends User {
     public void setCard(LibraryCard card) {
         this.card = card;
     }
-
 }
