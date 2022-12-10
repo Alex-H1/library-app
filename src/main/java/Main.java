@@ -22,7 +22,7 @@ import static helper.Date.date;
 import static helper.RanodomNumGen.randomNumGen;
 
 public class Main {
-    public final static Logger LOG = LogManager.getLogger(Main.class.getName());
+    public final static Logger LOG = LogManager.getLogger(Main.class);
     public static void main(String[] args) throws InvalidTypeException, InvalidBooleanException {
         Scanner scan = new Scanner(System.in);
         HashSet<User> userList = new HashSet<>();
