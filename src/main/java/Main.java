@@ -112,8 +112,8 @@ public class Main {
                 } else {
                     throw new InvalidBooleanException("please enter 0 or 1");
                 }
-            }catch (InvalidBooleanException IBE){
-                LOG.error(IBE);
+            }catch (InvalidBooleanException ibe){
+                LOG.error(ibe);
             }
         }
         String genre = "science";
@@ -142,7 +142,7 @@ public class Main {
                 Teacher teacher = new Teacher("placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", "placeHolder", 75, "placeHolder", s, "placeHolder", null);
                 Student student = new Student(firstName, lastName, address, city, userName, passWord, teacher, age, s, genre, grade, checkedOutBooks);
                 l.getMemberList().add(student);
-                l.getStudentGradeMap().put(student, Integer.valueOf(grade));
+                l.getStudentGradeMap().put(student, grade);
         }
 
     }
