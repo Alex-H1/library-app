@@ -1,4 +1,6 @@
 *.class
 *.idea
 *.metadata
-
+/target
+/out
+*library-app.iml

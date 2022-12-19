@@ -1,4 +1,4 @@
-package entity;
+package interfaces;
 
 public interface ILibraryCard {
     boolean cancelCard(boolean active);

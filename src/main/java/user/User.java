@@ -1,17 +1,20 @@
 package user;
 
-import java.util.Scanner;
+import interfaces.IUser;
+
+import java.util.function.Function;
 
 public class User implements IUser {
 
-    private static String firstName;
-    private static String lastName;
-    private final String passWord;
+    private final String firstName;
+    private final String lastName;
+    private String passWord;
     private String address;
     private String city;
     private String userName;
     private int age;
     private String preference;
+    Function<Integer, Integer> birthdate = age -> age += 1;
 
     public User(String firstName,
                 String lastName, String address,
@@ -28,20 +31,17 @@ public class User implements IUser {
         this.preference = preference;
     }
 
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public String getFirstName() {
         return this.firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return this.lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getAddress() {
@@ -77,7 +77,7 @@ public class User implements IUser {
     }
 
     public final int haveBirthDate(int age) {
-        return age += 1;
+        return birthdate.apply(age);
     }
 
     @Override
@@ -86,11 +86,9 @@ public class User implements IUser {
             return true;
         }
 
-        if (!(o instanceof User)) {
+        if (!(o instanceof User user)) {
             return false;
         }
-
-        User user = (User) o;
 
         boolean preferenceEquals = (this.preference == null && user.preference == null) ||
                 (this.preference != null && this.preference.equals(user.preference));
@@ -101,7 +99,7 @@ public class User implements IUser {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + (int) getAge();
+        hash = 31 * hash + getAge();
         hash = 31 * hash + (preference == null ? 0 : preference.hashCode());
         hash = 31 * hash + (preference == null ? 0 : preference.hashCode());
         return hash;

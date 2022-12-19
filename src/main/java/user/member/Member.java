@@ -1,12 +1,9 @@
 package user.member;
 
 import entity.LibraryCard;
-import entity.readingmaterial.Book;
-import entity.readingmaterial.NewsPaper;
 import entity.readingmaterial.ReadingMaterial;
 import user.User;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class Member extends User {
@@ -23,15 +20,22 @@ public class Member extends User {
         this.checkedOutBooks = checkedOutBooks;
     }
 
+    public Member(String firstName, String lastName) {
+        super(firstName, lastName);
+    }
+
     public LibraryCard getCard() {
         return card;
     }
+
     public ArrayList<ReadingMaterial> getCheckedOutBooks() {
         return this.checkedOutBooks;
     }
-    public void setCheckedOutBooks(){
+
+    public void setCheckedOutBooks() {
         this.checkedOutBooks = checkedOutBooks;
     }
+
     public void setCard(LibraryCard card) {
         this.card = card;
     }
