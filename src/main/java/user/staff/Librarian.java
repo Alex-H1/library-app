@@ -1,20 +1,12 @@
 package user.staff;
 
-import interfaces.ILibrarian;
-
-import java.util.function.Predicate;
-
 public final class Librarian extends Staff implements ILibrarian {
     private boolean putAwayBooks;
-
-    public Librarian(String firstName, String lastName) {
-        super(firstName, lastName);
-    }
 
     public Librarian(String firstName,
                      String lastName, String address,
                      String city, String userName, String passWord, int age,
-                     int empId, Predicate<String> fullTime, boolean putAwayBooks, String preference) {
+                     int empId, boolean fullTime, boolean putAwayBooks, String preference) {
         super(firstName, lastName, address, city, userName, passWord, age, preference, empId, fullTime);
         this.putAwayBooks = putAwayBooks;
     }

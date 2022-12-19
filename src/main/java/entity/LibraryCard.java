@@ -1,6 +1,5 @@
 package entity;
 
-import interfaces.ILibraryCard;
 import user.staff.Librarian;
 
 import java.time.LocalDate;
@@ -47,6 +46,8 @@ public class LibraryCard implements ILibraryCard {
     public boolean cancelCard(boolean active) {
         return this.active = false;
     }
+
+
 
 
 }

@@ -2,6 +2,7 @@ package entity;
 
 import entity.readingmaterial.ReadingMaterial;
 import user.User;
+import user.member.Member;
 
 import java.time.LocalDate;
 
@@ -25,6 +26,7 @@ public class CheckOut {
     public LocalDate getCheckIn() {
         return this.checkIn;
     }
+
 
 
     public void setCheckout() {
