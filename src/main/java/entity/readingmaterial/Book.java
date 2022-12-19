@@ -1,6 +1,7 @@
 package entity.readingmaterial;
 
 import entity.Genre;
+import interfaces.IBook;
 
 public class Book extends ReadingMaterial implements IBook {
     private final Genre genre;

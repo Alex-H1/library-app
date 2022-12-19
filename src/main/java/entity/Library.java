@@ -35,8 +35,8 @@ public class Library {
         this.studentGradeMap = new HashMap<>();
     }
 
-    public Library(String name, String address, HashSet<User> userList, Vector<Member> memberList,TreeSet
-            <ReadingMaterial> articleList,ArrayDeque<Teacher> teacherList, HashMap<Student, Integer> studentGradeMap) {
+    public Library(String name, String address, HashSet<User> userList, Vector<Member> memberList, TreeSet
+            <ReadingMaterial> articleList, ArrayDeque<Teacher> teacherList, HashMap<Student, Integer> studentGradeMap) {
         this.name = name;
         this.address = address;
         this.usersList = userList;
@@ -63,11 +63,26 @@ public class Library {
     public TreeSet<ReadingMaterial> getArticleList() {
         return this.articleList;
     }
-    public Vector<Member> getMemberList(){ return this.memberList;}
-    public ArrayDeque getTeacherList(){ return this.teacherList; }
-    public HashMap<Student, Integer> getStudentGradeMap(){ return this.studentGradeMap; };
-    public void setTeacherList(ArrayDeque<Teacher> teacherList){ this.teacherList = teacherList; }
-    public void setMemberList(Vector<Member> memberList){ this.memberList = memberList; }
+
+    public Vector<Member> getMemberList() {
+        return this.memberList;
+    }
+
+    public ArrayDeque getTeacherList() {
+        return this.teacherList;
+    }
+
+    public HashMap<Student, Integer> getStudentGradeMap() {
+        return this.studentGradeMap;
+    }
+
+    public void setTeacherList(ArrayDeque<Teacher> teacherList) {
+        this.teacherList = teacherList;
+    }
+
+    public void setMemberList(Vector<Member> memberList) {
+        this.memberList = memberList;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -84,57 +99,71 @@ public class Library {
     public void setArticleList(TreeSet<ReadingMaterial> articleList) {
         this.articleList = articleList;
     }
-    public void setStudentGradeMap(HashMap<Student, Integer> studentGradeMap){ this.studentGradeMap = studentGradeMap; }
-    public String promptFirstname(){
+
+    public void setStudentGradeMap(HashMap<Student, Integer> studentGradeMap) {
+        this.studentGradeMap = studentGradeMap;
+    }
+
+    public String promptFirstname() {
         LOG.info("Firstname: ");
         return scan.nextLine();
     }
-    public String promptLastname(){
+
+    public String promptLastname() {
         LOG.info("Lastname: ");
         return scan.nextLine();
     }
-    public String promptAddress(){
+
+    public String promptAddress() {
         LOG.info("Address: ");
         return scan.nextLine();
     }
-    public String promptCity(){
+
+    public String promptCity() {
         LOG.info("City: ");
         return scan.nextLine();
     }
-    public String promptUserName(){
+
+    public String promptUserName() {
         LOG.info("Username: ");
         return scan.nextLine();
     }
-    public String promptPassWord(){
+
+    public String promptPassWord() {
         LOG.info("Password: ");
         return scan.nextLine();
     }
+
     public int promptAge() throws InvalidTypeException {
         try {
             LOG.info("age: ");
             return scan.nextInt();
-        } catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             throw new InvalidTypeException("should be an integer");
         }
     }
-    public String promptTitle(){
+
+    public String promptTitle() {
         LOG.info("Title: ");
         return scan.nextLine();
     }
-    public String promptAuthor(){
+
+    public String promptAuthor() {
         LOG.info("Author: ");
         return scan.nextLine();
     }
-    public String promptSynopsis(){
+
+    public String promptSynopsis() {
         LOG.info("Synopsis: ");
         return scan.nextLine();
     }
 
-    public String promptArticle(){
+    public String promptArticle() {
         LOG.info("Title of article: ");
         return scan.nextLine();
     }
-    public String promptMember(){
+
+    public String promptMember() {
         LOG.info("Name of member: ");
         return scan.nextLine();
     }
