@@ -2,4 +2,5 @@
 *.idea
 *.metadata
 /target
-/library-app.iml
+/out
+*library-app.iml

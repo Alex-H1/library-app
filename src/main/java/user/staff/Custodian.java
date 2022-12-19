@@ -1,12 +1,14 @@
 package user.staff;
 
+import java.util.function.Predicate;
+
 public final class Custodian extends Staff {
     private boolean floorsCleaned;
     private boolean facilitiesCleaned;
     private boolean hygeneRestocked;
     // soap, hand sanitizer etc
 
-    public Custodian(boolean floorsCleaned, boolean facilitiesCleaned, boolean hygeneRestocked, int empId, boolean fullTime, String firstName,
+    public Custodian(boolean floorsCleaned, boolean facilitiesCleaned, boolean hygeneRestocked, int empId, Predicate<String> fullTime, String firstName,
                      String lastName, String address,
                      String city, String userName, String passWord, int age, String preference) {
         super(firstName, lastName, address, city, userName, passWord, age, preference, empId, fullTime);
