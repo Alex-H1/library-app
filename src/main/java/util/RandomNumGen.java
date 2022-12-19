@@ -1,8 +1,8 @@
-package helper;
+package util;
 
 import java.util.Random;
 
-public class RanodomNumGen {
+public class RandomNumGen {
     public final static int randomNumGen() {
         Random rand = new Random(); //instance of random class
         int upperbound = 25;

@@ -25,8 +25,8 @@ import java.util.function.IntSupplier;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static helper.Date.date;
-import static helper.RanodomNumGen.randomNumGen;
+import static util.Date.date;
+import static util.RandomNumGen.randomNumGen;
 
 public class Main {
     public final static Logger LOG = LogManager.getLogger(Main.class);
