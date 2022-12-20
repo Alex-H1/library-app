@@ -5,6 +5,9 @@ import entity.LibraryCard;
 import entity.readingmaterial.Book;
 import entity.readingmaterial.NewsPaper;
 import entity.readingmaterial.ReadingMaterial;
+import enums.Days;
+import enums.Grades;
+import enums.Months;
 import exceptions.InvalidBookException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidNumberException;
@@ -23,10 +26,7 @@ import user.staff.Librarian;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.IntSupplier;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 import static helper.Date.date;
 import static helper.RanodomNumGen.randomNumGen;
@@ -43,20 +43,52 @@ public class Main {
         HashMap<Student, Integer> studentGradeMap = new HashMap<>();
         Library l = new Library("county library", "123 Seseme St", userList, memberList, articleList, teacherList, studentGradeMap);
         while (true) {
-            LOG.info("Library UI");
-            if (userList.size() == 0) {
-                LOG.info("The Library is closed");
-            }
+            LOG.info("What day is today? ");
+            String day = scan.nextLine().toLowerCase();
+            Function<String, Days> today = (s) ->{
+                try {
+                    switch (s) {
+                        case "monday":
+                            return Days.MONDAY;
+                        case "tuesday":
+                            return Days.TUESDAY;
+                        case "wednesday":
+                            return Days.WEDNESDAY;
+                        case "thursday":
+                            return Days.THURSDAY;
+                        case "friday":
+                            return Days.FRIDAY;
+                        case "satuday":
+                            return Days.SATURDAY;
+                        case "sunday":
+                            return Days.SUNDAY;
+                        default:
+                            throw new InvalidTypeException("Please enter valid day of the week");
+                    }
+
+                } catch (InvalidTypeException e) {
+                    LOG.error(e);
+                }
+                return null;
+            };
+            Function<Days, Integer> checkWeekEnd = (d) -> {
+                if(d.getWeekEnd() == false){
+                    return 1;
+                }
+                return null;
+            };
+
+            LOG.info(today.apply(day).checkDay());
+            checkWeekEnd.apply(today.apply(day));
             LOG.info("0) Add User");
             LOG.info("1) See all Users");
             LOG.info("2) Search for User");
             LOG.info("3) Remove User");
             LOG.info("4) Add Article");
             LOG.info("5) See all Articles");
-            LOG.info("6) checkout Article(s)");
-//            LOG.info("5) Student Center");
+            LOG.info("6) Checkout Article(s)");
+            LOG.info("7) Student Center");
             int num = scan.nextInt();
-
             try {
                 switch (num) {
                     case 0:
@@ -76,6 +108,10 @@ public class Main {
                         break;
                     case 6:
                         checkoutArticle(l, scan);
+                        break;
+                    case 7:
+                        studentCenter(scan);
+                        break;
                     default:
                         if (num < 0 || num > 4) {
                             throw new InvalidNumberException("0-4");
@@ -86,6 +122,57 @@ public class Main {
             } catch (InvalidNumberException e) {
                 LOG.error(e);
             }
+        }
+    }
+
+    private static void studentCenter(Scanner scan) {
+        Function<String, Months> currentMonth = (s) ->{
+            try {
+                switch (s) {
+                    case "january":
+                        return Months.JANUARY;
+                    case "february":
+                        return Months.FEBRUARY;
+                    case "march":
+                        return Months.MARCH;
+                    case "april":
+                        return Months.APRIL;
+                    case "may":
+                        return Months.MAY;
+                    case "june":
+                        return Months.JUNE;
+                    case "july":
+                        return Months.JULY;
+                    case "august":
+                        return Months.AUGUST;
+                    case "september":
+                        return Months.SEPTEMBER;
+                    case "october":
+                        return Months.OCTOBER;
+                    case "november":
+                        return Months.NOVEMBER;
+                    case "december":
+                        return Months.DECEMBER;
+                    default:
+                        throw new InvalidTypeException("Please enter valid month");
+
+                }
+            }catch (InvalidTypeException ite){
+                LOG.error(ite);
+            }
+            return null;
+        };
+        LOG.info("Enter Current Month");
+        Months month = currentMonth.apply(scan.nextLine().toLowerCase());
+        switch(month.getSeason()){
+            case "Winter":
+                LOG.info("Students and Teachers are out for winter break");
+                break;
+            case "Summer":
+                LOG.info("Students and Teachers are out for summer break");
+                break;
+            default:
+                LOG.info("Have a good rest of the year!");
         }
     }
 
@@ -141,6 +228,35 @@ public class Main {
                 throw new RuntimeException(e);
             }
         };
+        Function<Integer, Grades> gradeLevel = (i) ->{
+            switch(i){
+                case 1:
+                    return Grades.FIRST;
+                case 2:
+                    return Grades.SECOND;
+                case 3:
+                    return Grades.THIRD;
+                case 4:
+                    return Grades.FOURTH;
+                case 5:
+                    return Grades.FIFTH;
+                case 6:
+                    return Grades.SIXTH;
+                case 7:
+                    return Grades.SEVENTH;
+                case 8:
+                    return Grades.EIGHTH;
+                case 9:
+                    return Grades.NINTH;
+                case 10:
+                    return Grades.TENTH;
+                case 11:
+                    return Grades.ELEVENTH;
+                case 12:
+                    return Grades.TWELFTH;
+            }
+            return null;
+        };
 
         int num2 = printMenu.get();
 
@@ -164,7 +280,6 @@ public class Main {
                 l.getUserList().add(new Custodian(true, true, true, randomNumGen(), fullTimeBool, firstName, lastName, address, city, userName, passWord, age.getAsInt(), genre));
                 break;
             case 2:
-
                 LOG.info("Department: ");
                 scan.nextLine();
                 String department = scan.nextLine();
@@ -174,8 +289,10 @@ public class Main {
                 LOG.info("Grade: ");
                 scan.nextLine();
                 int grade = scan.nextInt();
+                Grades level = gradeLevel.apply(grade);
                 Teacher teacher = new Teacher("miss", "miss");
                 Student student = new Student(firstName, lastName, address, city, userName, passWord, teacher, age.getAsInt(), c, genre, grade, checkedOutBooks);
+                LOG.info(level.hasClasses());
                 l.getMemberList().add(student);
                 l.getStudentGradeMap().put(student, grade);
         }
@@ -235,7 +352,7 @@ public class Main {
         };
         ICheckout<Member, ReadingMaterial> returnBook = (m, r) -> {
             m.getCheckedOutBooks().remove(r);
-            LOG.info("checked out " + r.getTitle());
+            LOG.info("nuSuccessfully returned:  " + r.getTitle());
         };
         LocalDate articleReturn = date().plusDays(90);
         String title = l.promptArticle();
