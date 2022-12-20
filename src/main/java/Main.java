@@ -8,8 +8,6 @@ import entity.readingmaterial.ReadingMaterial;
 import enums.Days;
 import enums.Grades;
 import enums.Months;
-import exceptions.InvalidBookException;
-import exceptions.InvalidNameException;
 import exceptions.InvalidNumberException;
 import exceptions.InvalidTypeException;
 import interfaces.ICheckout;
@@ -45,7 +43,7 @@ public class Main {
         while (true) {
             LOG.info("What day is today? ");
             String day = scan.nextLine().toLowerCase();
-            Function<String, Days> today = (s) ->{
+            Function<String, Days> today = (s) -> {
                 try {
                     switch (s) {
                         case "monday":
@@ -72,7 +70,7 @@ public class Main {
                 return null;
             };
             Function<Days, Integer> checkWeekEnd = (d) -> {
-                if(d.getWeekEnd() == false){
+                if (!d.getWeekEnd()) {
                     return 1;
                 }
                 return null;
@@ -126,7 +124,7 @@ public class Main {
     }
 
     private static void studentCenter(Scanner scan) {
-        Function<String, Months> currentMonth = (s) ->{
+        Function<String, Months> currentMonth = (s) -> {
             try {
                 switch (s) {
                     case "january":
@@ -157,14 +155,15 @@ public class Main {
                         throw new InvalidTypeException("Please enter valid month");
 
                 }
-            }catch (InvalidTypeException ite){
+            } catch (InvalidTypeException ite) {
                 LOG.error(ite);
             }
             return null;
         };
+//        names from enum
         LOG.info("Enter Current Month");
         Months month = currentMonth.apply(scan.nextLine().toLowerCase());
-        switch(month.getSeason()){
+        switch (month.getSeason()) {
             case "Winter":
                 LOG.info("Students and Teachers are out for winter break");
                 break;
@@ -205,6 +204,7 @@ public class Main {
 
     }
 
+    //create enum for user type
     public final static void addUser(Library l, Scanner scan) {
         Supplier<Integer> printMenu = () -> {
             LOG.info("Is user a ");
@@ -214,7 +214,7 @@ public class Main {
             LOG.info("3) Student");
             return scan.nextInt();
         };
-        Predicate<String> fullTimeBool = (s) -> Objects.equals(s, "true");
+        Predicate<String> isFullTime = (s) -> Objects.equals(s, "true");
         String firstName = l.promptFirstname();
         String lastName = l.promptLastname();
         String address = l.promptAddress();
@@ -228,8 +228,8 @@ public class Main {
                 throw new RuntimeException(e);
             }
         };
-        Function<Integer, Grades> gradeLevel = (i) ->{
-            switch(i){
+        Function<Integer, Grades> gradeLevel = (i) -> {
+            switch (i) {
                 case 1:
                     return Grades.FIRST;
                 case 2:
@@ -265,7 +265,7 @@ public class Main {
             LOG.info("Please enter true or false: ");
             scan.nextLine();
             String bool = scan.nextLine().toLowerCase();
-            fullTimeBool.test(bool);
+            isFullTime.test(bool);
         }
         String genre = "science";
         LibraryCard c = new LibraryCard(randomNumGen(), date(), new Librarian("librarian", "librarian"), true);
@@ -274,10 +274,10 @@ public class Main {
         Teacher t = new Teacher(firstName, lastName, address, city, userName, passWord, 22, "PE", c, genre, checkedOutBooks);
         switch (num2) {
             case 0:
-                l.getUserList().add(new Librarian(firstName, lastName, address, city, userName, passWord, age.getAsInt(), randomNumGen(), fullTimeBool, true, genre));
+                l.getUserList().add(new Librarian(firstName, lastName, address, city, userName, passWord, age.getAsInt(), randomNumGen(), isFullTime, true, genre));
                 break;
             case 1:
-                l.getUserList().add(new Custodian(true, true, true, randomNumGen(), fullTimeBool, firstName, lastName, address, city, userName, passWord, age.getAsInt(), genre));
+                l.getUserList().add(new Custodian(true, true, true, randomNumGen(), isFullTime, firstName, lastName, address, city, userName, passWord, age.getAsInt(), genre));
                 break;
             case 2:
                 LOG.info("Department: ");
@@ -346,51 +346,49 @@ public class Main {
         LOG.info("0) add book");
         LOG.info("2) return book");
         scan.nextLine();
-        ICheckout<Member, ReadingMaterial> addBook = (m, r) -> {
+        BiConsumer<Member, ReadingMaterial> addBook = (m, r) -> {
             m.getCheckedOutBooks().add(r);
             LOG.info("checked out " + r.getTitle());
         };
-        ICheckout<Member, ReadingMaterial> returnBook = (m, r) -> {
+        BiConsumer<Member, ReadingMaterial> returnBook = (m, r) -> {
             m.getCheckedOutBooks().remove(r);
             LOG.info("nuSuccessfully returned:  " + r.getTitle());
         };
         LocalDate articleReturn = date().plusDays(90);
+//        ICheckout<Member, ReadingMaterial, Integer, String, String> checkBook = (m, r, num, title, name) -> {
+//            switch (num) {
+//                case 0:
+//                    if (l.getUserList().contains(name) && l.getArticleList().contains(title)) {
+//                        CheckOut c = new CheckOut(date(), articleReturn, m);
+//                        m.getCheckedOutBooks().add(r);
+//                        LOG.info("checked out " + r.getTitle());
+//                    }
+//                    break;
+//                case 1:
+//                    if (m.getCheckedOutBooks().contains(r)) {
+//                        returnBook.apply(m, r);
+//                    }
+//                    break;
+//            }
+//        };
         String title = l.promptArticle();
         scan.nextLine();
         String name = l.promptMember();
         scan.nextLine();
         int num4 = scan.nextInt();
+
         for (Member m : l.getMemberList()) {
             for (ReadingMaterial r : l.getArticleList()) {
-                try {
-                    if (!(Objects.equals(title, r.getTitle()))) {
-                        throw new InvalidBookException("Invalid title");
-                    } else if (!(Objects.equals(name, m.getFirstName()))) {
-                        throw new InvalidNameException("Invalid name");
-                    }
-                    while (true) {
-                        switch (num4) {
-                            case 0:
-                                if (Objects.equals(title, r.getTitle()) && Objects.equals(name, m.getFirstName())) {
-                                    CheckOut c = new CheckOut(date(), articleReturn, m);
-                                    addBook.apply(m, r);
-                                }
-                                break;
-                            case 1:
-                                if (m.getCheckedOutBooks().contains(r)) {
-                                    returnBook.apply(m,r);
-                                }
-                                break;
-                        }
-                    }
-                } catch (InvalidBookException e) {
-                    throw new RuntimeException(e);
-                } catch (InvalidNameException e) {
-                    throw new RuntimeException(e);
+                if (num4 == 0 && l.getUserList().contains(name) && l.getArticleList().contains(title)) {
+                    CheckOut c = new CheckOut(date(), articleReturn, m);
+                   addBook.;
+                    LOG.info("checked out " + r.getTitle());
+                }
+                if (num4 == 1 && m.getCheckedOutBooks().contains(r)) {
+                    m.getCheckedOutBooks().remove(r);
+                    LOG.info("Book Successfully returned:  " + r.getTitle());
                 }
             }
-
-
         }
 
 

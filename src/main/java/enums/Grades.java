@@ -15,7 +15,7 @@ public enum Grades {
     TWELFTH("Secondary");
 
     private String educationLevel;
-
+//change level to enum
     Grades(String educationLevel) {
     this.educationLevel = educationLevel;
     }

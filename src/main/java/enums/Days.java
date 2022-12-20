@@ -8,7 +8,7 @@ public enum Days {
     FRIDAY(false),
     SATURDAY(true),
     SUNDAY(true);
-   private final boolean weekEnd;
+   private boolean weekEnd;
 
     Days(boolean weekEnd) {
         this.weekEnd = weekEnd;

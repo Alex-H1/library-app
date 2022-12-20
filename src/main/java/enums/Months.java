@@ -18,8 +18,8 @@ public enum Months {
     DECEMBER("Winter");
 
 
-    private final String season;
-
+    private String season;
+//    month name
     Months(String season) {
         this.season = season;
     }
