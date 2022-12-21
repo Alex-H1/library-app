@@ -346,52 +346,51 @@ public class Main {
         LOG.info("0) add book");
         LOG.info("2) return book");
         scan.nextLine();
-        BiConsumer<Member, ReadingMaterial> addBook = (m, r) -> {
+        ICheckout<Member, ReadingMaterial> addBook = (m, r) -> {
             m.getCheckedOutBooks().add(r);
             LOG.info("checked out " + r.getTitle());
         };
-        BiConsumer<Member, ReadingMaterial> returnBook = (m, r) -> {
+        ICheckout<Member, ReadingMaterial> returnBook = (m, r) -> {
             m.getCheckedOutBooks().remove(r);
-            LOG.info("nuSuccessfully returned:  " + r.getTitle());
+            LOG.info("Book Successfully returned:  " + r.getTitle());
         };
-        LocalDate articleReturn = date().plusDays(90);
-//        ICheckout<Member, ReadingMaterial, Integer, String, String> checkBook = (m, r, num, title, name) -> {
-//            switch (num) {
-//                case 0:
-//                    if (l.getUserList().contains(name) && l.getArticleList().contains(title)) {
-//                        CheckOut c = new CheckOut(date(), articleReturn, m);
-//                        m.getCheckedOutBooks().add(r);
-//                        LOG.info("checked out " + r.getTitle());
-//                    }
-//                    break;
-//                case 1:
-//                    if (m.getCheckedOutBooks().contains(r)) {
-//                        returnBook.apply(m, r);
-//                    }
-//                    break;
+        Function<String, Member> getMember = (s) -> {
+            for (Member m : l.getMemberList()) {
+            int i = 0;
+                if (s == l.getMemberList().get(i).getFirstName()){
+                    return l.getMemberList().get(i);
+                }
+            i++;
+            }
+            return null;
+        };
+//        Function<String, ReadingMaterial> getArtcle = (s) -> {
+//            for (ReadingMaterial r : l.getArticleList()) {
+//                int i = 0;
+//                if (r == l.getArticleList().){
+//                    return l.getMemberList().get(i);
+//                }
+//                i++;
 //            }
+//            return null;
 //        };
+        LocalDate articleReturn = date().plusDays(90);
         String title = l.promptArticle();
         scan.nextLine();
         String name = l.promptMember();
         scan.nextLine();
         int num4 = scan.nextInt();
+        Member m = getMember.apply(name);
 
-        for (Member m : l.getMemberList()) {
-            for (ReadingMaterial r : l.getArticleList()) {
-                if (num4 == 0 && l.getUserList().contains(name) && l.getArticleList().contains(title)) {
-                    CheckOut c = new CheckOut(date(), articleReturn, m);
-                   addBook.;
-                    LOG.info("checked out " + r.getTitle());
-                }
-                if (num4 == 1 && m.getCheckedOutBooks().contains(r)) {
-                    m.getCheckedOutBooks().remove(r);
-                    LOG.info("Book Successfully returned:  " + r.getTitle());
-                }
-            }
+        if (num4 == 0 && l.getUserList().contains(name) && l.getArticleList().contains(title)) {
+            CheckOut c = new CheckOut(date(), articleReturn, m);
+            addBook.apply(m, r);
+            LOG.info("checked out " + r.getTitle());
         }
-
-
+        if (num4 == 1 && m.getCheckedOutBooks().contains(r)) {
+            returnBook.apply(m, r);
+            LOG.info("Book Successfully returned:  " + r.getTitle());
+        }
     }
 }
 
