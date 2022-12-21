@@ -8,6 +8,9 @@ import entity.readingmaterial.ReadingMaterial;
 import enums.Days;
 import enums.Grades;
 import enums.Months;
+import enums.Users;
+import exceptions.InvalidBookException;
+import exceptions.InvalidNameException;
 import exceptions.InvalidNumberException;
 import exceptions.InvalidTypeException;
 import interfaces.ICheckout;
@@ -208,10 +211,9 @@ public class Main {
     public final static void addUser(Library l, Scanner scan) {
         Supplier<Integer> printMenu = () -> {
             LOG.info("Is user a ");
-            LOG.info("0) Librarian");
-            LOG.info("1) Janitor");
-            LOG.info("2) Teacher");
-            LOG.info("3) Student");
+            for (Users u : Users.values()) {
+                LOG.info(u.ordinal() + ") " + u);
+            }
             return scan.nextInt();
         };
         Predicate<String> isFullTime = (s) -> Objects.equals(s, "true");
@@ -274,18 +276,6 @@ public class Main {
         Teacher t = new Teacher(firstName, lastName, address, city, userName, passWord, 22, "PE", c, genre, checkedOutBooks);
         switch (num2) {
             case 0:
-                l.getUserList().add(new Librarian(firstName, lastName, address, city, userName, passWord, age.getAsInt(), randomNumGen(), isFullTime, true, genre));
-                break;
-            case 1:
-                l.getUserList().add(new Custodian(true, true, true, randomNumGen(), isFullTime, firstName, lastName, address, city, userName, passWord, age.getAsInt(), genre));
-                break;
-            case 2:
-                LOG.info("Department: ");
-                scan.nextLine();
-                String department = scan.nextLine();
-                l.getMemberList().add(new Teacher(firstName, lastName, address, city, userName, passWord, age.getAsInt(), department, c, genre, checkedOutBooks));
-                break;
-            case 3:
                 LOG.info("Grade: ");
                 scan.nextLine();
                 int grade = scan.nextInt();
@@ -295,6 +285,19 @@ public class Main {
                 LOG.info(level.hasClasses());
                 l.getMemberList().add(student);
                 l.getStudentGradeMap().put(student, grade);
+                break;
+            case 1:
+                LOG.info("Department: ");
+                scan.nextLine();
+                String department = scan.nextLine();
+                l.getMemberList().add(new Teacher(firstName, lastName, address, city, userName, passWord, age.getAsInt(), department, c, genre, checkedOutBooks));
+                break;
+            case 2:
+                l.getUserList().add(new Custodian(true, true, true, randomNumGen(), isFullTime, firstName, lastName, address, city, userName, passWord, age.getAsInt(), genre));
+                break;
+            case 3:
+                l.getUserList().add(new Librarian(firstName, lastName, address, city, userName, passWord, age.getAsInt(), randomNumGen(), isFullTime, true, genre));
+                break;
         }
 
     }
@@ -356,24 +359,25 @@ public class Main {
         };
         Function<String, Member> getMember = (s) -> {
             for (Member m : l.getMemberList()) {
-            int i = 0;
-                if (s == l.getMemberList().get(i).getFirstName()){
+                int i = 0;
+                if (s == l.getMemberList().get(i).getFirstName()) {
                     return l.getMemberList().get(i);
                 }
-            i++;
+                i++;
             }
             return null;
         };
-//        Function<String, ReadingMaterial> getArtcle = (s) -> {
-//            for (ReadingMaterial r : l.getArticleList()) {
-//                int i = 0;
-//                if (r == l.getArticleList().){
-//                    return l.getMemberList().get(i);
-//                }
-//                i++;
-//            }
-//            return null;
-//        };
+        Function<String, ReadingMaterial> getArtcle = (s) -> {
+            Iterator<ReadingMaterial> article = l.getArticleList().iterator();
+            while (article.hasNext()) {
+                int i = 0;
+                if (article.next().getTitle() == s) {
+                    return article.next();
+                }
+                i++;
+            }
+            return null;
+        };
         LocalDate articleReturn = date().plusDays(90);
         String title = l.promptArticle();
         scan.nextLine();
@@ -381,15 +385,26 @@ public class Main {
         scan.nextLine();
         int num4 = scan.nextInt();
         Member m = getMember.apply(name);
-
-        if (num4 == 0 && l.getUserList().contains(name) && l.getArticleList().contains(title)) {
-            CheckOut c = new CheckOut(date(), articleReturn, m);
-            addBook.apply(m, r);
-            LOG.info("checked out " + r.getTitle());
-        }
-        if (num4 == 1 && m.getCheckedOutBooks().contains(r)) {
-            returnBook.apply(m, r);
-            LOG.info("Book Successfully returned:  " + r.getTitle());
+        ReadingMaterial r = getArtcle.apply(title);
+        try {
+            if (num4 == 0 && l.getUserList().contains(name) && l.getArticleList().contains(title)) {
+                CheckOut c = new CheckOut(date(), articleReturn, m);
+                addBook.apply(m, r);
+                LOG.info("checked out " + r.getTitle());
+            }
+            if (num4 == 1 && m.getCheckedOutBooks().contains(r)) {
+                returnBook.apply(m, r);
+                LOG.info("Book Successfully returned:  " + r.getTitle());
+            }
+            if (!l.getArticleList().contains(title)) {
+                throw new InvalidBookException("Invalid title");
+            } else if (!(Objects.equals(name, m.getFirstName()))) {
+                throw new InvalidNameException("Invalid name");
+            }
+        } catch (InvalidBookException e) {
+            LOG.error(e);
+        } catch (InvalidNameException e) {
+            LOG.error(e);
         }
     }
 }

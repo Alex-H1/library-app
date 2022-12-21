@@ -1,30 +1,29 @@
 package enums;
 
 public enum Grades {
-    FIRST("Primary"),
-    SECOND("Primary"),
-    THIRD("Primary"),
-    FOURTH("Primary"),
-    FIFTH("Primary"),
-    SIXTH("Primary"),
-    SEVENTH("Post-Primary"),
-    EIGHTH("Post-Primary"),
-    NINTH("Secondary"),
-    TENTH("Secondary"),
-    ELEVENTH("Secondary"),
-    TWELFTH("Secondary");
+    FIRST(GradeLevel.PRIMARY),
+    SECOND(GradeLevel.PRIMARY),
+    THIRD(GradeLevel.PRIMARY),
+    FOURTH(GradeLevel.PRIMARY),
+    FIFTH(GradeLevel.PRIMARY),
+    SIXTH(GradeLevel.PRIMARY),
+    SEVENTH(GradeLevel.POST_PRIMARY),
+    EIGHTH(GradeLevel.POST_PRIMARY),
+    NINTH(GradeLevel.SECONDARY),
+    TENTH(GradeLevel.SECONDARY),
+    ELEVENTH(GradeLevel.SECONDARY),
+    TWELFTH(GradeLevel.SECONDARY);
 
-    private String educationLevel;
-//change level to enum
-    Grades(String educationLevel) {
+    private GradeLevel educationLevel;
+    Grades(GradeLevel educationLevel) {
     this.educationLevel = educationLevel;
     }
     public String hasClasses(){
         switch(this.educationLevel) {
-            case "Primary":
+            case PRIMARY:
                 return "Has one class";
-            case "Secondary":
-            case "Post-Primary":
+            case POST_PRIMARY:
+            case SECONDARY:
                 return "Has more than one class";
 
         }
