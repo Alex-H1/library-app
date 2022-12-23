@@ -1,9 +1,12 @@
 package entity.readingmaterial;
 
+import entity.Genre;
+
 public abstract class ReadingMaterial {
     private String title;
     private String author;
     private String synopsis;
+    private Genre genre;
 
     public ReadingMaterial(String title, String author, String synopsis) {
         this.title = title;
@@ -35,5 +38,8 @@ public abstract class ReadingMaterial {
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
     }
+
+    public Genre getGenre(){return this.genre;}
+
 
 }

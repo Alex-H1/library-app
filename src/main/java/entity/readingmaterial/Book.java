@@ -37,6 +37,7 @@ public class Book extends ReadingMaterial implements IBook {
     public int getPageCount() {
         return this.pageCount;
     }
+    public Genre getGenre(){return this.genre;}
 
 
     @Override

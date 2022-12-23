@@ -18,7 +18,7 @@ public class Library {
     private TreeSet<ReadingMaterial> articleList;
     private ArrayDeque<Teacher> teacherList;
     private Vector<Member> memberList;
-    private HashMap<Student, Integer> studentGradeMap = new HashMap<>();
+    private HashMap<Integer, Student> studentGradeMap = new HashMap<>();
 
     Scanner scan = new Scanner(System.in);
 
@@ -36,7 +36,7 @@ public class Library {
     }
 
     public Library(String name, String address, HashSet<User> userList, Vector<Member> memberList, TreeSet
-            <ReadingMaterial> articleList, ArrayDeque<Teacher> teacherList, HashMap<Student, Integer> studentGradeMap) {
+            <ReadingMaterial> articleList, ArrayDeque<Teacher> teacherList, HashMap<Integer, Student> studentGradeMap) {
         this.name = name;
         this.address = address;
         this.usersList = userList;
@@ -72,7 +72,7 @@ public class Library {
         return this.teacherList;
     }
 
-    public HashMap<Student, Integer> getStudentGradeMap() {
+    public HashMap<Integer, Student> getStudentGradeMap() {
         return this.studentGradeMap;
     }
 
@@ -100,8 +100,17 @@ public class Library {
         this.articleList = articleList;
     }
 
-    public void setStudentGradeMap(HashMap<Student, Integer> studentGradeMap) {
+    public void setStudentGradeMap(HashMap<Integer, Student> studentGradeMap) {
         this.studentGradeMap = studentGradeMap;
+    }
+
+    public Member findUser(String s) {
+        for(int i = 0; i < memberList.size(); i++){
+            if (s == memberList.get(i).getFirstName()) {
+                return memberList.get(i);
+            }
+        }
+        return null;
     }
 
     public String promptFirstname() {

@@ -25,9 +25,11 @@ import user.member.Teacher;
 import user.staff.Custodian;
 import user.staff.Librarian;
 
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.function.*;
+import java.util.stream.Collectors;
 
 import static helper.Date.date;
 import static helper.RanodomNumGen.randomNumGen;
@@ -41,7 +43,7 @@ public class Main {
         Vector<Member> memberList = new Vector<>();
         TreeSet<ReadingMaterial> articleList = new TreeSet<>();
         ArrayDeque<Teacher> teacherList = new ArrayDeque<>();
-        HashMap<Student, Integer> studentGradeMap = new HashMap<>();
+        HashMap<Integer, Student> studentGradeMap = new HashMap<>();
         Library l = new Library("county library", "123 Seseme St", userList, memberList, articleList, teacherList, studentGradeMap);
         while (true) {
             LOG.info("What day is today? ");
@@ -59,14 +61,13 @@ public class Main {
                             return Days.THURSDAY;
                         case "friday":
                             return Days.FRIDAY;
-                        case "satuday":
+                        case "saturday":
                             return Days.SATURDAY;
                         case "sunday":
                             return Days.SUNDAY;
                         default:
                             throw new InvalidTypeException("Please enter valid day of the week");
                     }
-
                 } catch (InvalidTypeException e) {
                     LOG.error(e);
                 }
@@ -84,38 +85,43 @@ public class Main {
             LOG.info("0) Add User");
             LOG.info("1) See all Users");
             LOG.info("2) Search for User");
-            LOG.info("3) Remove User");
-            LOG.info("4) Add Article");
-            LOG.info("5) See all Articles");
-            LOG.info("6) Checkout Article(s)");
-            LOG.info("7) Student Center");
+            LOG.info("3) See all Teachers");
+            LOG.info("4) See all Books");
+            LOG.info("5) Remove User");
+            LOG.info("6) Add Article");
+            LOG.info("7) See all Articles");
+            LOG.info("8) Checkout Article(s)");
+            LOG.info("9) Student Center");
+            LOG.info("10) See student by grade");
+            LOG.info("11) Search for book by genre");
+            LOG.info("12) View checked out books");
             int num = scan.nextInt();
             try {
                 switch (num) {
                     case 0:
                         addUser(l, scan);
                         break;
-                    case 1, 5:
-                        list(l, num);
+                    case 1, 3, 4, 7, 10, 11, 12:
+                        list(l, num, scan);
                         break;
                     case 2:
                         searchForUser(l, scan);
                         break;
-                    case 3:
+                    case 5:
                         removeUser(l, scan);
                         break;
-                    case 4:
+                    case 6:
                         addArticle(l, scan);
                         break;
-                    case 6:
+                    case 8:
                         checkoutArticle(l, scan);
                         break;
-                    case 7:
+                    case 9:
                         studentCenter(scan);
                         break;
                     default:
-                        if (num < 0 || num > 4) {
-                            throw new InvalidNumberException("0-4");
+                        if (num < 0 || num > 12) {
+                            throw new InvalidNumberException("0-12");
                         }
                         scan.close();
                         break;
@@ -163,7 +169,6 @@ public class Main {
             }
             return null;
         };
-//        names from enum
         LOG.info("Enter Current Month");
         Months month = currentMonth.apply(scan.nextLine().toLowerCase());
         switch (month.getSeason()) {
@@ -204,10 +209,8 @@ public class Main {
         scan.nextLine();
         String name = scan.nextLine();
         run.search(name);
-
     }
 
-    //create enum for user type
     public final static void addUser(Library l, Scanner scan) {
         Supplier<Integer> printMenu = () -> {
             LOG.info("Is user a ");
@@ -284,7 +287,7 @@ public class Main {
                 Student student = new Student(firstName, lastName, address, city, userName, passWord, teacher, age.getAsInt(), c, genre, grade, checkedOutBooks);
                 LOG.info(level.hasClasses());
                 l.getMemberList().add(student);
-                l.getStudentGradeMap().put(student, grade);
+                l.getStudentGradeMap().put(grade, student);
                 break;
             case 1:
                 LOG.info("Department: ");
@@ -331,17 +334,46 @@ public class Main {
         }
     }
 
-    public static final void list(Library l, int num) {
-        Consumer<Set<?>> displayList = set -> {
-            Iterator value = set.iterator();
-            while (value.hasNext()) {
-                LOG.info(value.next());
-            }
+    public static final void list(Library l, int num, Scanner scan) {
+        Consumer<String> display = s -> {
+            LOG.info(s);
         };
-        if (num == 1) {
-            displayList.accept(l.getUserList());
-        } else if (num == 3) {
-            displayList.accept(l.getArticleList());
+        switch (num) {
+            case 1:
+                l.getUserList().stream().forEach(u -> display.accept(u.getUserName()));
+                break;
+            case 3:
+                l.getArticleList().stream().forEach(r -> display.accept(r.getTitle()));
+                break;
+            case 4:
+                l.getArticleList().stream().filter(r -> r.getGenre() != null).forEach(r -> LOG.info(r));
+                break;
+            case 7:
+                l.getArticleList().stream().filter(r -> r.getGenre() == null).forEach(r -> LOG.info(r));
+                break;
+            case 10:
+                LOG.info("please enter grade: ");
+                scan.nextLine();
+                int grade = scan.nextInt();
+                List<Integer> student = l.getStudentGradeMap().keySet().stream().filter(i -> i == grade).collect(Collectors.toList());
+                for (int i : student) {
+                    LOG.info(student.get(i));
+                }
+                break;
+            case 11:
+                LOG.info("enter genre: ");
+                scan.nextLine();
+                String genre = scan.nextLine();
+                l.getArticleList().stream().filter(r -> r.getGenre().toString() == genre).collect(Collectors.toList()).forEach(r -> LOG.info(r));
+                break;
+            case 12:
+                LOG.info("Please enter name: ");
+                scan.nextLine();
+                String name = scan.nextLine();
+                Member member = l.findUser(name);
+                long booksOut = member.getCheckedOutBooks().stream().count();
+                LOG.info(booksOut);
+                break;
         }
     }
 
@@ -356,16 +388,6 @@ public class Main {
         ICheckout<Member, ReadingMaterial> returnBook = (m, r) -> {
             m.getCheckedOutBooks().remove(r);
             LOG.info("Book Successfully returned:  " + r.getTitle());
-        };
-        Function<String, Member> getMember = (s) -> {
-            for (Member m : l.getMemberList()) {
-                int i = 0;
-                if (s == l.getMemberList().get(i).getFirstName()) {
-                    return l.getMemberList().get(i);
-                }
-                i++;
-            }
-            return null;
         };
         Function<String, ReadingMaterial> getArtcle = (s) -> {
             Iterator<ReadingMaterial> article = l.getArticleList().iterator();
@@ -384,7 +406,7 @@ public class Main {
         String name = l.promptMember();
         scan.nextLine();
         int num4 = scan.nextInt();
-        Member m = getMember.apply(name);
+        Member m = l.findUser(name);
         ReadingMaterial r = getArtcle.apply(title);
         try {
             if (num4 == 0 && l.getUserList().contains(name) && l.getArticleList().contains(title)) {
@@ -398,7 +420,7 @@ public class Main {
             }
             if (!l.getArticleList().contains(title)) {
                 throw new InvalidBookException("Invalid title");
-            } else if (!(Objects.equals(name, m.getFirstName()))) {
+            } else if (!l.getUserList().contains(name)) {
                 throw new InvalidNameException("Invalid name");
             }
         } catch (InvalidBookException e) {
@@ -407,6 +429,8 @@ public class Main {
             LOG.error(e);
         }
     }
+
+
 }
 
 
