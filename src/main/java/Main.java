@@ -45,6 +45,7 @@ public class Main {
         ArrayDeque<Teacher> teacherList = new ArrayDeque<>();
         HashMap<Integer, Student> studentGradeMap = new HashMap<>();
         Library l = new Library("county library", "123 Seseme St", userList, memberList, articleList, teacherList, studentGradeMap);
+
         while (true) {
             LOG.info("What day is today? ");
             String day = scan.nextLine().toLowerCase();

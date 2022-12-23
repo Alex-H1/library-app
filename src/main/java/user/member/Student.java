@@ -21,6 +21,10 @@ public final class Student extends Member implements IStudent {
         this.teacher = teacher;
         this.gradeLevel = gradeLevel;
     }
+    public Student(String firstName, String lastName) {
+        super(firstName, lastName);
+    }
+
 
     public Teacher getTeacher() {
         return this.teacher;

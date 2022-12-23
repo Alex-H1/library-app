@@ -6,7 +6,6 @@ public final class Custodian extends Staff {
     private boolean floorsCleaned;
     private boolean facilitiesCleaned;
     private boolean hygeneRestocked;
-    // soap, hand sanitizer etc
 
     public Custodian(boolean floorsCleaned, boolean facilitiesCleaned, boolean hygeneRestocked, int empId, Predicate<String> fullTime, String firstName,
                      String lastName, String address,
@@ -16,6 +15,9 @@ public final class Custodian extends Staff {
         this.facilitiesCleaned = facilitiesCleaned;
         this.hygeneRestocked = hygeneRestocked;
 
+    }
+    public Custodian(String firstName, String lastName){
+        super(firstName, lastName);
     }
 
     public boolean getFloorsCleaned() {
