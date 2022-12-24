@@ -31,12 +31,13 @@ import java.util.function.*;
 import java.util.stream.Collectors;
 
 import static helper.Date.date;
-import static helper.RanodomNumGen.randomNumGen;
+import static helper.RandomNumGen.randomNumGen;
+
 
 public class Main {
     public final static Logger LOG = LogManager.getLogger(Main.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
         HashSet<User> userList = new HashSet<>();
         Vector<Member> memberList = new Vector<>();
@@ -47,41 +48,19 @@ public class Main {
 
         while (true) {
             LOG.info("What day is today? ");
-            String day = scan.nextLine().toLowerCase();
-            Function<String, Day> today = (s) -> {
-                try {
-                    switch (s) {
-                        case "monday":
-                            return Day.MONDAY;
-                        case "tuesday":
-                            return Day.TUESDAY;
-                        case "wednesday":
-                            return Day.WEDNESDAY;
-                        case "thursday":
-                            return Day.THURSDAY;
-                        case "friday":
-                            return Day.FRIDAY;
-                        case "saturday":
-                            return Day.SATURDAY;
-                        case "sunday":
-                            return Day.SUNDAY;
-                        default:
-                            throw new InvalidTypeException("Please enter valid day of the week");
-                    }
-                } catch (InvalidTypeException e) {
-                    LOG.error(e);
-                }
-                return null;
-            };
             Function<Day, Integer> checkWeekEnd = (d) -> {
                 if (!d.getWeekEnd()) {
                     return 1;
                 }
                 return null;
             };
-
-            LOG.info(today.apply(day).checkDay());
-            checkWeekEnd.apply(today.apply(day));
+            try {
+                Day toDay = Day.currentDay(scan.nextLine().toLowerCase());
+                checkWeekEnd.apply(toDay);
+                LOG.info(toDay.checkDay());
+            } catch (InvalidTypeException e) {
+                LOG.error(e);
+            }
             LOG.info("0) Add User");
             LOG.info("1) See all Users");
             LOG.info("2) Search for User");
@@ -137,19 +116,11 @@ public class Main {
         LOG.info("Enter Current Month");
         try {
             Months month = Months.currentMonth(scan.nextLine());
-        }catch (InvalidTypeException ite){
+            LOG.info(month.seasonMessage());
+        } catch (InvalidTypeException ite) {
             LOG.error(ite);
         }
-//        switch (month.getSeason()) {
-//            case "Winter":
-//                LOG.info("Students and Teachers are out for winter break");
-//                break;
-//            case "Summer":
-//                LOG.info("Students and Teachers are out for summer break");
-//                break;
-//            default:
-//                LOG.info("Have a good rest of the year!");
-//        }
+
     }
 
     private static void removeUser(Library l, Scanner scan) {
@@ -202,36 +173,6 @@ public class Main {
                 throw new RuntimeException(e);
             }
         };
-        Function<Integer, Grades> gradeLevel = (i) -> {
-            switch (i) {
-                case 1:
-                    return Grades.FIRST;
-                case 2:
-                    return Grades.SECOND;
-                case 3:
-                    return Grades.THIRD;
-                case 4:
-                    return Grades.FOURTH;
-                case 5:
-                    return Grades.FIFTH;
-                case 6:
-                    return Grades.SIXTH;
-                case 7:
-                    return Grades.SEVENTH;
-                case 8:
-                    return Grades.EIGHTH;
-                case 9:
-                    return Grades.NINTH;
-                case 10:
-                    return Grades.TENTH;
-                case 11:
-                    return Grades.ELEVENTH;
-                case 12:
-                    return Grades.TWELFTH;
-            }
-            return null;
-        };
-
         int num2 = printMenu.get();
 
         if (num2 == 0 || num2 == 1) {
@@ -244,15 +185,14 @@ public class Main {
         String genre = "science";
         LibraryCard c = new LibraryCard(randomNumGen(), date(), new Librarian("librarian", "librarian"), true);
         ArrayList<ReadingMaterial> checkedOutBooks = new ArrayList<>();
-        checkedOutBooks.add(new Book("Green Eggs and Ham", "Dr.Suess", "synopsis", new Genre("childrens book")));
         Teacher t = new Teacher(firstName, lastName, address, city, userName, passWord, 22, "PE", c, genre, checkedOutBooks);
         switch (num2) {
             case 0:
                 LOG.info("Grade: ");
                 scan.nextLine();
                 int grade = scan.nextInt();
-                Grades level = gradeLevel.apply(grade);
-                Teacher teacher = new Teacher("miss", "miss");
+                Grades level = Grades.gradeLevel(grade);
+                Teacher teacher = new Teacher("Miss", "Misses");
                 Student student = new Student(firstName, lastName, address, city, userName, passWord, teacher, age.getAsInt(), c, genre, grade, checkedOutBooks);
                 LOG.info(level.hasClasses());
                 l.getMemberList().add(student);

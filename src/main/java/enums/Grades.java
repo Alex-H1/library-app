@@ -18,6 +18,48 @@ public enum Grades {
     Grades(GradeLevel educationLevel) {
     this.educationLevel = educationLevel;
     }
+
+    public static Grades gradeLevel(int i){
+        switch (i) {
+            case 1 -> {
+                return Grades.FIRST;
+            }
+            case 2 -> {
+                return Grades.SECOND;
+            }
+            case 3 -> {
+                return Grades.THIRD;
+            }
+            case 4 -> {
+                return Grades.FOURTH;
+            }
+            case 5 -> {
+                return Grades.FIFTH;
+            }
+            case 6 -> {
+                return Grades.SIXTH;
+            }
+            case 7 -> {
+                return Grades.SEVENTH;
+            }
+            case 8 -> {
+                return Grades.EIGHTH;
+            }
+            case 9 -> {
+                return Grades.NINTH;
+            }
+            case 10 -> {
+                return Grades.TENTH;
+            }
+            case 11 -> {
+                return Grades.ELEVENTH;
+            }
+            case 12 -> {
+                return Grades.TWELFTH;
+            }
+        }
+        return null;
+    }
     public String hasClasses(){
         switch(this.educationLevel) {
             case PRIMARY:
