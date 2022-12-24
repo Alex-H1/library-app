@@ -1,4 +1,4 @@
-package reflections;
+package reflection;
 
 import entity.Library;
 import org.apache.logging.log4j.LogManager;

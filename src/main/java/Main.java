@@ -5,7 +5,7 @@ import entity.LibraryCard;
 import entity.readingmaterial.Book;
 import entity.readingmaterial.NewsPaper;
 import entity.readingmaterial.ReadingMaterial;
-import enums.Days;
+import enums.Day;
 import enums.Grades;
 import enums.Months;
 import enums.Users;
@@ -25,7 +25,6 @@ import user.member.Teacher;
 import user.staff.Custodian;
 import user.staff.Librarian;
 
-import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.function.*;
@@ -49,23 +48,23 @@ public class Main {
         while (true) {
             LOG.info("What day is today? ");
             String day = scan.nextLine().toLowerCase();
-            Function<String, Days> today = (s) -> {
+            Function<String, Day> today = (s) -> {
                 try {
                     switch (s) {
                         case "monday":
-                            return Days.MONDAY;
+                            return Day.MONDAY;
                         case "tuesday":
-                            return Days.TUESDAY;
+                            return Day.TUESDAY;
                         case "wednesday":
-                            return Days.WEDNESDAY;
+                            return Day.WEDNESDAY;
                         case "thursday":
-                            return Days.THURSDAY;
+                            return Day.THURSDAY;
                         case "friday":
-                            return Days.FRIDAY;
+                            return Day.FRIDAY;
                         case "saturday":
-                            return Days.SATURDAY;
+                            return Day.SATURDAY;
                         case "sunday":
-                            return Days.SUNDAY;
+                            return Day.SUNDAY;
                         default:
                             throw new InvalidTypeException("Please enter valid day of the week");
                     }
@@ -74,7 +73,7 @@ public class Main {
                 }
                 return null;
             };
-            Function<Days, Integer> checkWeekEnd = (d) -> {
+            Function<Day, Integer> checkWeekEnd = (d) -> {
                 if (!d.getWeekEnd()) {
                     return 1;
                 }
@@ -127,61 +126,30 @@ public class Main {
                         scan.close();
                         break;
                 }
-            } catch (InvalidNumberException e) {
+            } catch (InvalidNumberException | InvalidTypeException e) {
                 LOG.error(e);
             }
         }
     }
 
-    private static void studentCenter(Scanner scan) {
-        Function<String, Months> currentMonth = (s) -> {
-            try {
-                switch (s) {
-                    case "january":
-                        return Months.JANUARY;
-                    case "february":
-                        return Months.FEBRUARY;
-                    case "march":
-                        return Months.MARCH;
-                    case "april":
-                        return Months.APRIL;
-                    case "may":
-                        return Months.MAY;
-                    case "june":
-                        return Months.JUNE;
-                    case "july":
-                        return Months.JULY;
-                    case "august":
-                        return Months.AUGUST;
-                    case "september":
-                        return Months.SEPTEMBER;
-                    case "october":
-                        return Months.OCTOBER;
-                    case "november":
-                        return Months.NOVEMBER;
-                    case "december":
-                        return Months.DECEMBER;
-                    default:
-                        throw new InvalidTypeException("Please enter valid month");
+    private static void studentCenter(Scanner scan) throws InvalidTypeException {
 
-                }
-            } catch (InvalidTypeException ite) {
-                LOG.error(ite);
-            }
-            return null;
-        };
         LOG.info("Enter Current Month");
-        Months month = currentMonth.apply(scan.nextLine().toLowerCase());
-        switch (month.getSeason()) {
-            case "Winter":
-                LOG.info("Students and Teachers are out for winter break");
-                break;
-            case "Summer":
-                LOG.info("Students and Teachers are out for summer break");
-                break;
-            default:
-                LOG.info("Have a good rest of the year!");
+        try {
+            Months month = Months.currentMonth(scan.nextLine());
+        }catch (InvalidTypeException ite){
+            LOG.error(ite);
         }
+//        switch (month.getSeason()) {
+//            case "Winter":
+//                LOG.info("Students and Teachers are out for winter break");
+//                break;
+//            case "Summer":
+//                LOG.info("Students and Teachers are out for summer break");
+//                break;
+//            default:
+//                LOG.info("Have a good rest of the year!");
+//        }
     }
 
     private static void removeUser(Library l, Scanner scan) {

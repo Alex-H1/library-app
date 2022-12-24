@@ -1,6 +1,6 @@
 package enums;
 
-public enum Days {
+public enum Day {
     MONDAY(false),
     TUESDAY(false),
     WEDNESDAY(false),
@@ -10,7 +10,7 @@ public enum Days {
     SUNDAY(true);
    private boolean weekEnd;
 
-    Days(boolean weekEnd) {
+    Day(boolean weekEnd) {
         this.weekEnd = weekEnd;
     }
     public boolean getWeekEnd(){
