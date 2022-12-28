@@ -15,7 +15,7 @@ public class TextReader {
     public final static Logger LOG = LogManager.getLogger(TextReader.class);
 
     public static void main(String[] args) throws IOException {
-        File file = new File("src/main/java/filereader/text.txt");
+        File file = new File("src/main/resources/text.txt");
         File output = new File("src/main/java/filereader/output.txt");
         try {
             List<String> lines = FileUtils.readLines(file, "UTF-8");
