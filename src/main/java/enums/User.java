@@ -1,6 +1,6 @@
 package enums;
 
-public enum Users {
+public enum User {
     STUDENT,
     TEACHER,
     CUSTODIAN,

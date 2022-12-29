@@ -6,9 +6,9 @@ import entity.readingmaterial.Book;
 import entity.readingmaterial.NewsPaper;
 import entity.readingmaterial.ReadingMaterial;
 import enums.Day;
-import enums.Grades;
-import enums.Months;
-import enums.Users;
+import enums.Grade;
+import enums.Month;
+import enums.User;
 import exceptions.InvalidBookException;
 import exceptions.InvalidNameException;
 import exceptions.InvalidNumberException;
@@ -18,7 +18,6 @@ import interfaces.IDelete;
 import interfaces.ISearch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import user.User;
 import user.member.Member;
 import user.member.Student;
 import user.member.Teacher;
@@ -39,7 +38,7 @@ public class Main {
 
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
-        HashSet<User> userList = new HashSet<>();
+        HashSet<user.User> userList = new HashSet<>();
         Vector<Member> memberList = new Vector<>();
         TreeSet<ReadingMaterial> articleList = new TreeSet<>();
         ArrayDeque<Teacher> teacherList = new ArrayDeque<>();
@@ -115,8 +114,8 @@ public class Main {
 
         LOG.info("Enter Current Month");
         try {
-            Months month = Months.currentMonth(scan.nextLine());
-            LOG.info(month.seasonMessage());
+            Month month = Month.getCurrentMonth(scan.nextLine().toLowerCase());
+            LOG.info(month.getSeason().getSeasonalMessage());
         } catch (InvalidTypeException ite) {
             LOG.error(ite);
         }
@@ -151,10 +150,10 @@ public class Main {
         run.search(name);
     }
 
-    public final static void addUser(Library l, Scanner scan) {
+    public final static void addUser(Library l, Scanner scan) throws InvalidTypeException {
         Supplier<Integer> printMenu = () -> {
             LOG.info("Is user a ");
-            for (Users u : Users.values()) {
+            for (User u : User.values()) {
                 LOG.info(u.ordinal() + ") " + u);
             }
             return scan.nextInt();
@@ -191,10 +190,10 @@ public class Main {
                 LOG.info("Grade: ");
                 scan.nextLine();
                 int grade = scan.nextInt();
-                Grades level = Grades.gradeLevel(grade);
+                Grade level = Grade.gradeLevel(grade);
                 Teacher teacher = new Teacher("Miss", "Misses");
                 Student student = new Student(firstName, lastName, address, city, userName, passWord, teacher, age.getAsInt(), c, genre, grade, checkedOutBooks);
-                LOG.info(level.hasClasses());
+                LOG.info(level.getEducationLevel().getMessage());
                 l.getMemberList().add(student);
                 l.getStudentGradeMap().put(grade, student);
                 break;
