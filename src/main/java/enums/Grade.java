@@ -37,7 +37,9 @@ public enum Grade {
     }
 
     public static Grade gradeLevel(int i) throws InvalidTypeException {
-        return Arrays.stream(Grade.values()).filter(grade -> Objects.equals(grade.gradeNum, i)).findFirst().orElseThrow(() -> new InvalidTypeException("student is in college"));
+        return Arrays.stream(Grade.values())
+                .filter(grade -> Objects.equals(grade.gradeNum, i))
+                .findFirst().orElseThrow(() -> new InvalidTypeException("student is in college"));
 
     }
 

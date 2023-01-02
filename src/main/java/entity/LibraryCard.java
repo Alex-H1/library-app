@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class LibraryCard implements ILibraryCard {
     private static int id;
-    private LocalDate issueDate;
+    private final LocalDate issueDate;
     private final Librarian issuer;
     private boolean active;
 
@@ -30,18 +30,6 @@ public class LibraryCard implements ILibraryCard {
 
     public boolean getActive() {
         return this.active;
-    }
-
-    public void setId(int id) {
-        LibraryCard.id = id;
-    }
-
-    public void setIssueDate(LocalDate issueDate) {
-        this.issueDate = issueDate;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public boolean cancelCard(boolean active) {

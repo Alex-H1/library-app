@@ -1,5 +1,6 @@
 package user.member;
 
+import entity.Genre;
 import entity.LibraryCard;
 import entity.readingmaterial.ReadingMaterial;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 public final class Teacher extends Member {
     private String department;
 
-    public Teacher(String firstName, String lastName, String address, String city, String userName, String passWord, int age, String department, LibraryCard card, String preference, ArrayList<ReadingMaterial> checkedOutBooks) {
+    public Teacher(String firstName, String lastName, String address, String city, String userName, String passWord, int age, String department, LibraryCard card, Genre preference, ArrayList<ReadingMaterial> checkedOutBooks) {
         super(firstName, lastName, address, city, userName, passWord, age, card, preference, checkedOutBooks);
         this.department = department;
     }

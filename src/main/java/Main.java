@@ -114,6 +114,7 @@ public class Main {
 
         LOG.info("Enter Current Month");
         try {
+            scan.nextLine();
             Month month = Month.getCurrentMonth(scan.nextLine().toLowerCase());
             LOG.info(month.getSeason().getSeasonalMessage());
         } catch (InvalidTypeException ite) {
@@ -132,8 +133,7 @@ public class Main {
         };
         LOG.info("User name: ");
         scan.nextLine();
-        String name = scan.nextLine();
-        remove.delete(name);
+        remove.delete(scan.nextLine());
     }
 
     private static void searchForUser(Library l, Scanner scan) {
@@ -165,6 +165,7 @@ public class Main {
         String city = l.promptCity();
         String userName = l.promptUserName();
         String passWord = l.promptPassWord();
+        String genre = l.promptGenre();
         IntSupplier age = () -> {
             try {
                 return l.promptAge();
@@ -174,17 +175,16 @@ public class Main {
         };
         int num2 = printMenu.get();
 
-        if (num2 == 0 || num2 == 1) {
+        if (num2 == 2 || num2 == 3) {
             LOG.info("Is user full-time?");
             LOG.info("Please enter true or false: ");
             scan.nextLine();
             String bool = scan.nextLine().toLowerCase();
             isFullTime.test(bool);
         }
-        String genre = "science";
         LibraryCard c = new LibraryCard(randomNumGen(), date(), new Librarian("librarian", "librarian"), true);
         ArrayList<ReadingMaterial> checkedOutBooks = new ArrayList<>();
-        Teacher t = new Teacher(firstName, lastName, address, city, userName, passWord, 22, "PE", c, genre, checkedOutBooks);
+        Teacher t = new Teacher(firstName, lastName, address, city, userName, passWord, 22, "PE", c, new Genre(genre), checkedOutBooks);
         switch (num2) {
             case 0:
                 LOG.info("Grade: ");
@@ -192,7 +192,7 @@ public class Main {
                 int grade = scan.nextInt();
                 Grade level = Grade.gradeLevel(grade);
                 Teacher teacher = new Teacher("Miss", "Misses");
-                Student student = new Student(firstName, lastName, address, city, userName, passWord, teacher, age.getAsInt(), c, genre, grade, checkedOutBooks);
+                Student student = new Student(firstName, lastName, address, city, userName, passWord, teacher, age.getAsInt(), c, new Genre(genre), grade, checkedOutBooks);
                 LOG.info(level.getEducationLevel().getMessage());
                 l.getMemberList().add(student);
                 l.getStudentGradeMap().put(grade, student);
@@ -201,13 +201,13 @@ public class Main {
                 LOG.info("Department: ");
                 scan.nextLine();
                 String department = scan.nextLine();
-                l.getMemberList().add(new Teacher(firstName, lastName, address, city, userName, passWord, age.getAsInt(), department, c, genre, checkedOutBooks));
+                l.getMemberList().add(new Teacher(firstName, lastName, address, city, userName, passWord, age.getAsInt(), department, c, new Genre(genre), checkedOutBooks));
                 break;
             case 2:
-                l.getUserList().add(new Custodian(true, true, true, randomNumGen(), isFullTime, firstName, lastName, address, city, userName, passWord, age.getAsInt(), genre));
+                l.getUserList().add(new Custodian(true, true, true, randomNumGen(), isFullTime, firstName, lastName, address, city, userName, passWord, age.getAsInt(),  new Genre(genre)));
                 break;
             case 3:
-                l.getUserList().add(new Librarian(firstName, lastName, address, city, userName, passWord, age.getAsInt(), randomNumGen(), isFullTime, true, genre));
+                l.getUserList().add(new Librarian(firstName, lastName, address, city, userName, passWord, age.getAsInt(), randomNumGen(), isFullTime, true, new Genre(genre)));
                 break;
         }
 
@@ -238,7 +238,7 @@ public class Main {
                 LOG.info("Publish Date");
                 int publishDate = Integer.parseInt(scan.nextLine());
                 l.getArticleList().add(new NewsPaper(title, author, synopsis, publisher, publishDate));
-
+                break;
         }
     }
 

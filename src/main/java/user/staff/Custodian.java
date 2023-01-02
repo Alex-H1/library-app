@@ -1,19 +1,21 @@
 package user.staff;
 
+import entity.Genre;
+
 import java.util.function.Predicate;
 
 public final class Custodian extends Staff {
     private boolean floorsCleaned;
     private boolean facilitiesCleaned;
-    private boolean hygeneRestocked;
+    private boolean hygieneRestocked;
 
-    public Custodian(boolean floorsCleaned, boolean facilitiesCleaned, boolean hygeneRestocked, int empId, Predicate<String> fullTime, String firstName,
+    public Custodian(boolean floorsCleaned, boolean facilitiesCleaned, boolean hygieneRestocked, int empId, Predicate<String> fullTime, String firstName,
                      String lastName, String address,
-                     String city, String userName, String passWord, int age, String preference) {
+                     String city, String userName, String passWord, int age, Genre preference) {
         super(firstName, lastName, address, city, userName, passWord, age, preference, empId, fullTime);
         this.floorsCleaned = floorsCleaned;
         this.facilitiesCleaned = facilitiesCleaned;
-        this.hygeneRestocked = hygeneRestocked;
+        this.hygieneRestocked = hygieneRestocked;
 
     }
     public Custodian(String firstName, String lastName){
@@ -36,12 +38,12 @@ public final class Custodian extends Staff {
         this.facilitiesCleaned = facilitiesCleaned;
     }
 
-    public boolean getHygeneRestocked() {
-        return this.hygeneRestocked = hygeneRestocked;
+    public boolean hygieneRestocked() {
+        return this.hygieneRestocked = hygieneRestocked;
     }
 
-    public void setHygeneRestocked(boolean hygeneRestocked) {
-        this.hygeneRestocked = hygeneRestocked;
+    public void hygieneRestocked(boolean hygieneRestocked) {
+        this.hygieneRestocked = hygieneRestocked;
     }
 
 

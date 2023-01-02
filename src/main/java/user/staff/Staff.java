@@ -1,5 +1,6 @@
 package user.staff;
 
+import entity.Genre;
 import user.User;
 
 import java.util.function.Predicate;
@@ -12,7 +13,7 @@ public abstract class Staff extends User {
     public Staff(String firstName,
                  String lastName, String address,
                  String city, String userName, String passWord, int age,
-                 String preference, int empId, Predicate<String> fullTime) {
+                 Genre preference, int empId, Predicate<String> fullTime) {
         super(firstName, lastName, address, city, userName, passWord, age, preference);
         this.empId = empId;
         this.fullTime = fullTime;

@@ -1,5 +1,6 @@
 package user.member;
 
+import entity.Genre;
 import entity.LibraryCard;
 import entity.readingmaterial.ReadingMaterial;
 import interfaces.IStudent;
@@ -16,7 +17,7 @@ public final class Student extends Member implements IStudent {
                    String lastName, String address,
                    String city, String userName,
                    String passWord, Teacher teacher,
-                   int age, LibraryCard card, String preference, int gradeLevel, ArrayList<ReadingMaterial> checkedOutBooks) {
+                   int age, LibraryCard card, Genre preference, int gradeLevel, ArrayList<ReadingMaterial> checkedOutBooks) {
         super(firstName, lastName, address, city, userName, passWord, age, card, preference, checkedOutBooks);
         this.teacher = teacher;
         this.gradeLevel = gradeLevel;

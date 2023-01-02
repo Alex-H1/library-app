@@ -1,5 +1,6 @@
 package user;
 
+import entity.Genre;
 import interfaces.IUser;
 
 import java.util.function.Function;
@@ -13,13 +14,13 @@ public class User implements IUser {
     private String city;
     private String userName;
     private int age;
-    private String preference;
+    private Genre preference;
     Function<Integer, Integer> birthdate = age -> age += 1;
 
     public User(String firstName,
                 String lastName, String address,
                 String city, String userName, String passWord,
-                int age, String preference) {
+                int age, Genre preference) {
 
         this.firstName = firstName;
         this.lastName = lastName;
