@@ -30,12 +30,15 @@ public enum Month {
     public Season getSeason() {
         return this.season;
     }
-    public String getMonthName(){
+    public String getMonthByName(){
         return this.monthName;
     }
 
     public static Month getCurrentMonth(String s) throws InvalidTypeException {
-        return Arrays.stream(Month.values()).filter(month -> month.equals(s)).findFirst().orElseThrow(() -> new InvalidTypeException("Please enter valid day of the month"));
+        return Arrays.stream(Month.values())
+                .filter(month -> month.monthName.equals(s))
+                .findFirst()
+        .orElseThrow(() -> new InvalidTypeException("Please enter valid day of the month"));
     }
 
 }

@@ -1,5 +1,6 @@
 package user.member;
 
+import entity.Genre;
 import entity.LibraryCard;
 import entity.readingmaterial.ReadingMaterial;
 import user.User;
@@ -14,7 +15,7 @@ public class Member extends User {
                   String lastName, String address,
                   String city, String userName,
                   String passWord, int age,
-                  LibraryCard card, String preference, ArrayList<ReadingMaterial> checkedOutBooks) {
+                  LibraryCard card, Genre preference, ArrayList<ReadingMaterial> checkedOutBooks) {
         super(firstName, lastName, address, city, userName, passWord, age, preference);
         this.card = card;
         this.checkedOutBooks = checkedOutBooks;
