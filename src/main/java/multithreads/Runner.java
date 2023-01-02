@@ -18,10 +18,10 @@ public class Runner {
 //            Thread thread1 = new Thread(thread);
 //            thread1.start();
 //        }
-//
-//        ExecutorService fixedPool = Executors.newFixedThreadPool(5);
-//        ThreadPoolExecutor pool = (ThreadPoolExecutor) fixedPool;
-//
+
+        ExecutorService fixedPool = Executors.newFixedThreadPool(5);
+        ThreadPoolExecutor pool = (ThreadPoolExecutor) fixedPool;
+
 //        LOG.info("Core threads: " + ((ThreadPoolExecutor) fixedPool).getCorePoolSize());
 //        LOG.info("Max pool size: " + ((ThreadPoolExecutor) fixedPool).getMaximumPoolSize());
 //        LOG.info("Total task count: " + ((ThreadPoolExecutor) fixedPool).getTaskCount());
@@ -50,7 +50,7 @@ public class Runner {
             synchronized (resource1) {
                 LOG.info(resource1 + " :locked");
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     LOG.error(e);
                 }
@@ -67,7 +67,7 @@ public class Runner {
             synchronized (resource2) {
                 LOG.info(resource2 + " :locked");
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     LOG.error(e);
                 }
@@ -80,3 +80,4 @@ public class Runner {
 
     }
 }
+
