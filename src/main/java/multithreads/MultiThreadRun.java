@@ -9,14 +9,10 @@ public class MultiThreadRun implements Runnable {
     @Override
     public void run() {
         for (int i = 0; i < 5; i++) {
-//            try {
             LOG.info(i);
             LOG.info("Running Task" + Thread.currentThread().getName());
-//                TimeUnit.SECONDS.sleep((long) i * 1000);
             LOG.info("Task Complete" + Thread.currentThread().getName());
-//            } catch (InterruptedException e) {
-//                LOG.error(e);
-//            }
+
         }
     }
 }

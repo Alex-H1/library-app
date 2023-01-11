@@ -7,9 +7,9 @@ import java.util.concurrent.*;
 
 public class Runner {
     public final static Logger LOG = LogManager.getLogger(Runner.class);
+    static final String resource1 = "resource1";
 
     static final String resource2 = "resource2";
-    static final String resource1 = "resource1";
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 //        for (int i = 0; i < 5; i++) {
@@ -37,15 +37,15 @@ public class Runner {
 //        future.get();
 
         // threadLocks
-        Threadlock1 threadlock1 = new Threadlock1();
-        Threadlock2 threadlock2 = new Threadlock2();
+        DeadLock1 deadLock1 = new DeadLock1();
+        DeadLock2 deadLock2 = new DeadLock2();
 
-        threadlock1.start();
-        threadlock2.start();
+        deadLock1.start();
+        deadLock2.start();
 
     }
 
-    public static class Threadlock1 extends Thread {
+    public static class DeadLock1 extends Thread {
         public void run() {
             synchronized (resource1) {
                 LOG.info(resource1 + " :locked");
@@ -62,7 +62,7 @@ public class Runner {
         }
     }
 
-    public static class Threadlock2 extends Thread {
+    public static class DeadLock2 extends Thread {
         public void run() {
             synchronized (resource2) {
                 LOG.info(resource2 + " :locked");
@@ -77,7 +77,6 @@ public class Runner {
                 LOG.info(resource1 + ": locked");
             }
         }
-
     }
 }
 
