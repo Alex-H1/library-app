@@ -18,7 +18,7 @@ public class Library {
     private TreeSet<ReadingMaterial> articleList;
     private ArrayDeque<Teacher> teacherList;
     private Vector<Member> memberList;
-    private HashMap<Integer, Student> studentGradeMap = new HashMap<>();
+    private HashMap<Integer, Student> studentGradeMap;
 
     Scanner scan = new Scanner(System.in);
 
@@ -174,6 +174,11 @@ public class Library {
 
     public String promptMember() {
         LOG.info("Name of member: ");
+        return scan.nextLine();
+    }
+
+    public String promptGenre() {
+        LOG.info("Favorite genre: ");
         return scan.nextLine();
     }
 
